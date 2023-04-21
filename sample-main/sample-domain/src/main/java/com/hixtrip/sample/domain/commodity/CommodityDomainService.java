@@ -1,8 +1,15 @@
 package com.hixtrip.sample.domain.commodity;
 
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+
 /**
  * 商品领域服务
- * todo 需要实现根据SKU查价格
  */
+@Component
 public class CommodityDomainService {
+    public BigDecimal getSkuPrice(String skuId) {
+        return new BigDecimal(200);
+    }
 }
