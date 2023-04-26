@@ -9,9 +9,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderDomainService {
     /**
-     * 创建订单
+     * todo 需要实现
+     * 创建待付款订单
      */
     public void createOrder() {
+        //需要你在infra实现, 自行定义出入参
+    }
+
+    /**
+     * todo 需要实现
+     * 待付款订单支付成功
+     */
+    public void orderPaySuccess() {
+        //需要你在infra实现, 自行定义出入参
+    }
+
+    /**
+     * todo 需要实现
+     * 待付款订单支付失败
+     */
+    public void orderPayFail() {
         //需要你在infra实现, 自行定义出入参
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class PayDomainService {
 
     /**
-     * 记录支付回调
+     * 记录支付回调结果
      */
     public void payRecord() {
         //无需实现，直接调用即可
