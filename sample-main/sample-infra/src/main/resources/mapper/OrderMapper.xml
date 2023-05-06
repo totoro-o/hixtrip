@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hixtrip.sample.infra.OrderMapper">
+<!--mapper xml-->
+    <insert id="save" parameterType="com.hixtrip.sample.infra.db.dataobject.OrderDO">
+        insert into `order` (id, order_no, user_id, sku_id, num, sku_price, total_amount, pay_status, pay_time, pay_url,
+                             pay_amount, third_party_serial_number, create_by, update_by)
+        values (#{orderDO.id}, #{orderDO.order_no}, #{orderDO.user_id}, #{orderDO.sku_id}, #{orderDO.num},
+                #{orderDO.sku_price},
+                #{orderDO.total_amount}, #{orderDO.pay_status}, #{orderDO.pay_time}, #{orderDO.pay_url},
+                #{orderDO.pay_amount},
+                #{orderDO.third_party_serial_number}, #{orderDO.create_by}, #{orderDO.update_by});
+    </insert>
+</mapper>
