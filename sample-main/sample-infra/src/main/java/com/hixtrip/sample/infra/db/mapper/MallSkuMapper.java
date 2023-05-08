@@ -1,8 +1,8 @@
 package com.hixtrip.sample.infra.db.mapper;
 
-import org.mapstruct.Mapper;
 
-@Mapper
+import com.hixtrip.sample.infra.db.dataobject.MallSkuDO;
+
 public interface MallSkuMapper {
-
+    void saveOrUpdate(MallSkuDO sku);
 }

@@ -2,7 +2,7 @@ package com.hixtrip.sample.app.service;
 
 import com.hixtrip.sample.app.api.SampleService;
 import com.hixtrip.sample.client.SampleReq;
-import com.hixtrip.sample.client.SampleVO;
+import com.hixtrip.sample.client.BaseVO;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SampleServiceImpl implements SampleService {
     @Override
-    public SampleVO test(SampleReq sampleReq) {
-        return SampleVO.builder().build();
+    public BaseVO test(SampleReq sampleReq) {
+        return BaseVO.builder().build();
     }
 }

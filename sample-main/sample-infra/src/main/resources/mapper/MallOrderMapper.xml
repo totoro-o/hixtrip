@@ -1,17 +1,30 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hixtrip.sample.infra.db.mapper.MallSkuMapper">
+<mapper namespace="com.hixtrip.sample.infra.db.mapper.MallSkuOrderMapper">
 
-    <resultMap id="MallSkuMap" type="com.hixtrip.sample.infra.db.dataobject.MallOrderDO">
+    <resultMap id="MallSkuOrderMap" type="com.hixtrip.sample.infra.db.dataobject.MallOrderDO">
         <id property="id" column="id" jdbcType="BIGINT"/>
-        <result property="createDate" column="date" jdbcType="DATE"/>
-        <result property="isHoliday" column="is_holiday" jdbcType="VARCHAR"/>
-        <result property="wageRate" column="wage_rate" jdbcType="INTEGER"/>
-        <result property="isAfter" column="is_after" jdbcType="TINYINT"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="desc" column="desc" jdbcType="VARCHAR"/>
-        <result property="country" column="country" jdbcType="VARCHAR"/>
-        <result property="year" column="year" jdbcType="INTEGER"/>
+        <result property="orderId" column="order_id" jdbcType="BIGINT"/>
+        <result property="skuId" column="sku_id" jdbcType="BIGINT"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="quantity" column="quantity" jdbcType="INTEGER"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="status" column="quantity" jdbcType="TINYINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <insert id="saveOrUpdate" parameterType="com.hixtrip.sample.infra.db.dataobject.MallOrderDO">
+        insert into `mall-sku`(`order_id`,`sku_id`,`user_id`,`quantity`,`price`,`create_time`,`remark`,`status`)
+        values(#{order.oriderId},#{order.skuId},#{order.userId},#{order.quantity},#{order.price},#{order.createTime}
+        ,#{order.remark},#{order.status})
+         ON DUPLICATE KEY UPDATE update_time = now() ,`remark` = values(`remark`),`status` = values(`status`)
+    </insert>
+
+    <select id="findOrderByOrderId" resultMap="MallSkuOrderMap">
+         select `order_id`,`sku_id`,`user_id`,`quantity`,`price`,`create_time`,`remark`,`status` from  `mall-sku`
+         where `order_id` = #{orderId}
+
+    </select>
 </mapper>

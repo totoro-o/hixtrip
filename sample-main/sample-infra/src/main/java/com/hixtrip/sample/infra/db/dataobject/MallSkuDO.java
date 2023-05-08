@@ -24,5 +24,5 @@ public class MallSkuDO {
 
     private Float price;
 
-    private Date createDate;
+    private Date createTime;
 }

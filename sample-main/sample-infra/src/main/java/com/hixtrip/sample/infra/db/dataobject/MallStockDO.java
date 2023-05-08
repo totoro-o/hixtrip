@@ -13,11 +13,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@TableName(value = "mall-sku", autoResultMap = true)
+@TableName(value = "mall-stock", autoResultMap = true)
 @SuperBuilder(toBuilder = true)
 public class MallStockDO {
     private Long id;
     private Long skuId;
     private Long quantity;
-    private Date createDate;
+    private Date createTime;
 }

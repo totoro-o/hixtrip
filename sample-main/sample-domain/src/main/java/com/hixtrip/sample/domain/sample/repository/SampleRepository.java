@@ -7,4 +7,6 @@ import com.hixtrip.sample.domain.sample.model.Sample;
  */
 public interface SampleRepository {
     Sample test();
+
+
 }

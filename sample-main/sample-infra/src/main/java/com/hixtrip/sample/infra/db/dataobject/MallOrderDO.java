@@ -24,4 +24,5 @@ public class MallOrderDO {
     private Date createTime;
     private Long userId;
     private String remark;
+    private Long quantity;
 }

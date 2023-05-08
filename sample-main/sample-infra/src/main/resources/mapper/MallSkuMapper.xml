@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hixtrip.sample.infra.db.mapper.MallSkuMapper">
+
+    <resultMap id="MallSkuMap" type="com.hixtrip.sample.infra.db.dataobject.MallSkuDO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="saveOrUpdate" parameterType="com.hixtrip.sample.infra.db.dataobject.MallSkuDO">
+        insert into `mall-sku`(`price`,`create_time`,`name`,`description`)
+        values(#{sku.price},#{sku.createTime},#{sku.name},#{sku.description})
+         ON DUPLICATE KEY UPDATE update_time = now() ,`price` = values(`price`),`name` = values(`name`),`description` = values(`description`)
+    </insert>
+
+</mapper>
