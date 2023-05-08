@@ -1,0 +1,17 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hixtrip.sample.infra.db.mapper.MallSkuMapper">
+
+    <resultMap id="MallSkuMap" type="com.hixtrip.sample.infra.db.dataobject.MallOrderDO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="createDate" column="date" jdbcType="DATE"/>
+        <result property="isHoliday" column="is_holiday" jdbcType="VARCHAR"/>
+        <result property="wageRate" column="wage_rate" jdbcType="INTEGER"/>
+        <result property="isAfter" column="is_after" jdbcType="TINYINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="desc" column="desc" jdbcType="VARCHAR"/>
+        <result property="country" column="country" jdbcType="VARCHAR"/>
+        <result property="year" column="year" jdbcType="INTEGER"/>
+    </resultMap>
+</mapper>
