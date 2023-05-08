@@ -16,15 +16,18 @@
     </resultMap>
 
     <insert id="saveOrUpdate" parameterType="com.hixtrip.sample.infra.db.dataobject.MallOrderDO">
-        insert into `mall-sku`(`order_id`,`sku_id`,`user_id`,`quantity`,`price`,`create_time`,`remark`,`status`)
+        insert into `mall-order`(`order_id`,`sku_id`,`user_id`,`quantity`,`price`,`create_time`,`remark`,`status`)
         values(#{order.oriderId},#{order.skuId},#{order.userId},#{order.quantity},#{order.price},#{order.createTime}
         ,#{order.remark},#{order.status})
          ON DUPLICATE KEY UPDATE update_time = now() ,`remark` = values(`remark`),`status` = values(`status`)
     </insert>
 
     <select id="findOrderByOrderId" resultMap="MallSkuOrderMap">
-         select `order_id`,`sku_id`,`user_id`,`quantity`,`price`,`create_time`,`remark`,`status` from  `mall-sku`
+         select `order_id`,`sku_id`,`user_id`,`quantity`,`price`,`create_time`,`remark`,`status` from  `mall-order`
          where `order_id` = #{orderId}
-
     </select>
+
+    <update id="updateOrderStatus">
+        udpate `mall-order` set `status` = #{status} where `order_id` = #{orderId}
+    </update>
 </mapper>
