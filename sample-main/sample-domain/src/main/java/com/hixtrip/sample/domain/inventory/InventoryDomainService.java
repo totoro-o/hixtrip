@@ -25,7 +25,7 @@ public class InventoryDomainService {
      * @return
      */
     public Boolean changeInventory(String skuId, Long sellableQuantity, Long withholdingQuantity, Long occupiedQuantity) {
-        //todo 需要你在infra实现
+        //todo 需要你在infra实现，特别注意，需要处理一般并发场景，防止超卖。但不需要进行高并发设计。
         return true;
     }
 }
