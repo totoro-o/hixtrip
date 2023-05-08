@@ -43,4 +43,8 @@ public class OrderDomainService {
         order.setPayStatus(Order.PayStatusEnum.PAY_FAIL.getCode());
         orderRepository.update(order);
     }
+
+    public void orderDuplicatePay(Order order) {
+
+    }
 }

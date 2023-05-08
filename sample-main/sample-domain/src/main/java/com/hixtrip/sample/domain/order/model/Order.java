@@ -53,6 +53,17 @@ public class Order {
         this.totalAmount = this.skuPrice.multiply(BigDecimal.valueOf(this.num));
     }
 
+    public boolean duplicatePay(String paySerialNumber) {
+        if (isEmpty(paySerialNumber) || isEmpty(this.thirdPartySerialNumber)) {
+            return false;
+        }
+        return !paySerialNumber.equals(this.thirdPartySerialNumber);
+    }
+
+    private static boolean isEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
+
     @AllArgsConstructor
     @Getter
     public enum PayStatusEnum {

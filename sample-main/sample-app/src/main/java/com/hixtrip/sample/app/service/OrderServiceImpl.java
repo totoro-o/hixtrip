@@ -67,10 +67,15 @@ public class OrderServiceImpl implements OrderService {
         payDomainService.payRecord();
         // 根据orderNo查询订单信息, 这边用new Order()代替
         Order order = new Order();
+        boolean paySuccess = Order.PayStatusEnum.PAY_SUCCESS.getCode().equals(payCallbackReq.getPayStatus());
         if (order.checkOrderHandleComplete()) {
+            // 需要判断是否重复支付，判断依据暂定为支付流水号不一致
+            if (paySuccess && order.duplicatePay(payCallbackReq.getSerialNumber())) {
+                // 重复支付，需要主动发起退款(其它处理措施也可)，发起退款也需要做记录，避免重复退
+                orderDomainService.orderDuplicatePay(order);
+            }
             return;
         }
-        boolean paySuccess = Order.PayStatusEnum.PAY_SUCCESS.getCode().equals(payCallbackReq.getPayStatus());
         Long inventory = inventoryDomainService.getInventory(order.getSkuId());
         if (paySuccess) {
             order.setPayAmount(payCallbackReq.getPayAmount());
