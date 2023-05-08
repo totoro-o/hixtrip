@@ -42,6 +42,17 @@ public class Order {
      */
     private String thirdPartySerialNumber;
 
+    /**
+     * @return true表示这笔订单的回调已经处理过
+     */
+    public boolean checkOrderHandleComplete() {
+        return !Order.PayStatusEnum.WAIT_PAY.getCode().equals(getPayStatus());
+    }
+
+    public void calcTotalAmount() {
+        this.totalAmount = this.skuPrice.multiply(BigDecimal.valueOf(this.num));
+    }
+
     @AllArgsConstructor
     @Getter
     public enum PayStatusEnum {
