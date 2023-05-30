@@ -17,10 +17,6 @@ public class OrderDomainService {
   OrderRepository orderRepository;
 
 
-  public Order getOrder(Long id) {
-    Order order = orderRepository.get(id);
-    return order;
-  }
 
   /**
    * 创建待付款订单

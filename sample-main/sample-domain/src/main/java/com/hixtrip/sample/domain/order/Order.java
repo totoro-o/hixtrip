@@ -13,7 +13,6 @@ import java.time.Instant;
  * @since
  */
 @Data
-@Builder
 public class Order {
   private Long id;
   private Long version;

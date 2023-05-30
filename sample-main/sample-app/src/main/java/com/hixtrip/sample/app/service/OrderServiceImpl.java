@@ -9,7 +9,6 @@ import com.hixtrip.sample.domain.inventory.InventoryDomainService;
 import com.hixtrip.sample.domain.inventory.Inventory;
 import com.hixtrip.sample.domain.order.OrderDomainService;
 import com.hixtrip.sample.domain.order.Order;
-import com.hixtrip.sample.domain.pay.PayDomainService;
 import com.hixtrip.sample.domain.pay.PaymentStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -24,7 +23,7 @@ import java.math.BigDecimal;
  */
 public class OrderServiceImpl implements OrderService {
   @Autowired
-  private ApplicationContext applicationContext;
+  ApplicationContext applicationContext;
   @Autowired
   InventoryDomainService inventoryDomainService;
   @Autowired
@@ -32,8 +31,6 @@ public class OrderServiceImpl implements OrderService {
   @Autowired
   CommodityDomainService commodityDomainService;
 
-  @Autowired
-  PayDomainService payDomainService;
 
   @Override
   public OrderVO create(OrderReq req) {

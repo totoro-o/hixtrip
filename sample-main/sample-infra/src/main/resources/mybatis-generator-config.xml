@@ -6,6 +6,10 @@
 <generatorConfiguration>
     <context id="DB2Tables" targetRuntime="MyBatis3">
 
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/mall"
                         userId="root"
@@ -21,7 +25,7 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources/mapper">
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources/">
             <!--            <property name="enableSubPackages" value="true" />-->
         </sqlMapGenerator>
 
@@ -30,7 +34,11 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table schema="mall" tableName="inventory" domainObjectName="inventoryDO" enableCountByExample="false"
+        <table schema="mall" tableName="inventory" domainObjectName="InventoryDO" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false">
+        </table>
+        <table schema="mall" tableName="order" domainObjectName="OrderDO" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" selectByExampleQueryId="false">
         </table>
