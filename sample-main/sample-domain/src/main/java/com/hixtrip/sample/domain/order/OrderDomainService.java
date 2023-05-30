@@ -1,6 +1,10 @@
 package com.hixtrip.sample.domain.order;
 
+import com.hixtrip.sample.domain.order.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 /**
  * 订单领域服务
@@ -8,27 +12,51 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class OrderDomainService {
-    /**
-     * todo 需要实现
-     * 创建待付款订单
-     */
-    public void createOrder() {
-        //需要你在infra实现, 自行定义出入参
-    }
 
-    /**
-     * todo 需要实现
-     * 待付款订单支付成功
-     */
-    public void orderPaySuccess() {
-        //需要你在infra实现, 自行定义出入参
-    }
+  @Autowired
+  OrderRepository orderRepository;
 
-    /**
-     * todo 需要实现
-     * 待付款订单支付失败
-     */
-    public void orderPayFail() {
-        //需要你在infra实现, 自行定义出入参
+
+  public Order getOrder(Long id) {
+    Order order = orderRepository.get(id);
+    return order;
+  }
+
+  /**
+   * 创建待付款订单
+   */
+  public Order createOrder(BigDecimal skuPrice, Long skuId, Long userId, Long qty) {
+    Order order = new Order(userId, skuId, skuPrice, qty);
+    return orderRepository.save(order);
+  }
+
+  /**
+   * 待付款订单支付成功
+   */
+  public void orderPaySuccess(Long orderId, String number) {
+    Order order = orderRepository.get(orderId);
+    order.paidSuccess(number);
+    orderRepository.save(order);
+  }
+
+  /**
+   * 待付款订单支付失败
+   */
+  public void orderPayFail(Long orderId, String number) {
+    Order order = orderRepository.get(orderId);
+    order.paidFail(number);
+    orderRepository.save(order);
+  }
+
+  public void orderPayDup(Long orderId, String number) {
+    Order order = orderRepository.get(orderId);
+    if (order.isPaidSuccess()) {
+      // 通知退款聚合根，发起退款
+      // ....
+    } else if (order.isPaidFail()) {
+      order.paidSuccess(number);
     }
+    orderRepository.save(order);
+  }
+
 }

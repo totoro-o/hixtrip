@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  */
 @Component
 public class CommodityDomainService {
-    public BigDecimal getSkuPrice(String skuId) {
+    public BigDecimal getSkuPrice(Long skuId) {
         return new BigDecimal(200);
     }
 }

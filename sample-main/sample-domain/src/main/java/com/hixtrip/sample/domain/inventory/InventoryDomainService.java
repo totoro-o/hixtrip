@@ -1,5 +1,10 @@
 package com.hixtrip.sample.domain.inventory;
 
+import com.hixtrip.sample.domain.inventory.repository.InventoryRepository;
+import com.hixtrip.sample.domain.order.OrderCreatedEvent;
+import com.hixtrip.sample.domain.order.OrderPaidSuccessEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,24 +13,41 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class InventoryDomainService {
-    /**
-     * 获取sku当前库存
-     * @param skuId
-     */
-    public void getInventory(String skuId) {
-        //todo 需要你在infra实现, 返回的领域对象自行定义
-    }
 
-    /**
-     * 修改库存
-     * @param skuId
-     * @param sellableQuantity 可售库存
-     * @param withholdingQuantity 预占库存
-     * @param occupiedQuantity 占用库存
-     * @return
-     */
-    public Boolean changeInventory(String skuId, Long sellableQuantity, Long withholdingQuantity, Long occupiedQuantity) {
-        //todo 需要你在infra实现，特别注意，需要处理一般并发场景，防止超卖。但不需要进行高并发设计。
-        return true;
-    }
+  @Autowired
+  InventoryRepository inventoryRepository;
+
+  /**
+   * 获取sku当前库存
+   *
+   * @param skuId
+   */
+  public Inventory getInventory(Long skuId) {
+    return inventoryRepository.get(skuId);
+  }
+
+  /**
+   * 订单生成时，库存变化
+   *
+   * @param event
+   */
+  @EventListener
+  public void onOrderCreatedEvent(OrderCreatedEvent event) {
+    Inventory inventory = getInventory(event.getSkuId());
+    inventory.transferSellQty2holdingQty(event.getQty());
+    inventoryRepository.save(inventory);
+  }
+
+  /**
+   * 订单支付成功
+   *
+   * @param event
+   */
+  @EventListener
+  void onOrderPaidSuccessEvent(OrderPaidSuccessEvent event) {
+    Inventory inventory = getInventory(event.getSkuId());
+    inventory.transferHoldingQty2OccupiedQuantity(event.getQty());
+    inventoryRepository.save(inventory);
+  }
+
 }
