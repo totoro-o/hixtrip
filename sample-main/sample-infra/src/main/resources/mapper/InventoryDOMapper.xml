@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hixtrip.sample.infra.db.mapper.InventoryDOMapper">
+  <resultMap id="BaseResultMap" type="com.hixtrip.sample.infra.db.dataobject.InventoryDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+    <result column="creatorId" jdbcType="BIGINT" property="creatorid" />
+    <result column="createdTime" jdbcType="TIMESTAMP" property="createdtime" />
+    <result column="modifierId" jdbcType="BIGINT" property="modifierid" />
+    <result column="modifiedTime" jdbcType="TIMESTAMP" property="modifiedtime" />
+    <result column="sku_id" jdbcType="BIGINT" property="skuId" />
+    <result column="sellable_qty" jdbcType="BIGINT" property="sellableQty" />
+    <result column="withholding_qty" jdbcType="BIGINT" property="withholdingQty" />
+    <result column="occupied_qty" jdbcType="BIGINT" property="occupiedQty" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, version, creatorId, createdTime, modifierId, modifiedTime, sku_id, sellable_qty, 
+    withholding_qty, occupied_qty
+  </sql>
+  <select id="selectBySkuId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from inventory
+    where sku_id = #{skuId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inventory
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from inventory
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hixtrip.sample.infra.db.dataobject.InventoryDO">
+    insert into inventory (id, version, creatorId, 
+      createdTime, modifierId, modifiedTime, 
+      sku_id, sellable_qty, withholding_qty, 
+      occupied_qty)
+    values (#{id,jdbcType=BIGINT}, #{version,jdbcType=BIGINT}, #{creatorid,jdbcType=BIGINT}, 
+      #{createdtime,jdbcType=TIMESTAMP}, #{modifierid,jdbcType=BIGINT}, #{modifiedtime,jdbcType=TIMESTAMP}, 
+      #{skuId,jdbcType=BIGINT}, #{sellableQty,jdbcType=BIGINT}, #{withholdingQty,jdbcType=BIGINT}, 
+      #{occupiedQty,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hixtrip.sample.infra.db.dataobject.InventoryDO">
+    insert into inventory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="creatorid != null">
+        creatorId,
+      </if>
+      <if test="createdtime != null">
+        createdTime,
+      </if>
+      <if test="modifierid != null">
+        modifierId,
+      </if>
+      <if test="modifiedtime != null">
+        modifiedTime,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="sellableQty != null">
+        sellable_qty,
+      </if>
+      <if test="withholdingQty != null">
+        withholding_qty,
+      </if>
+      <if test="occupiedQty != null">
+        occupied_qty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="creatorid != null">
+        #{creatorid,jdbcType=BIGINT},
+      </if>
+      <if test="createdtime != null">
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierid != null">
+        #{modifierid,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedtime != null">
+        #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="sellableQty != null">
+        #{sellableQty,jdbcType=BIGINT},
+      </if>
+      <if test="withholdingQty != null">
+        #{withholdingQty,jdbcType=BIGINT},
+      </if>
+      <if test="occupiedQty != null">
+        #{occupiedQty,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hixtrip.sample.infra.db.dataobject.InventoryDO">
+    update inventory
+    <set>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="creatorid != null">
+        creatorId = #{creatorid,jdbcType=BIGINT},
+      </if>
+      <if test="createdtime != null">
+        createdTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierid != null">
+        modifierId = #{modifierid,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedtime != null">
+        modifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="sellableQty != null">
+        sellable_qty = #{sellableQty,jdbcType=BIGINT},
+      </if>
+      <if test="withholdingQty != null">
+        withholding_qty = #{withholdingQty,jdbcType=BIGINT},
+      </if>
+      <if test="occupiedQty != null">
+        occupied_qty = #{occupiedQty,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hixtrip.sample.infra.db.dataobject.InventoryDO">
+    update inventory
+    set version = #{version,jdbcType=BIGINT},
+      creatorId = #{creatorid,jdbcType=BIGINT},
+      createdTime = #{createdtime,jdbcType=TIMESTAMP},
+      modifierId = #{modifierid,jdbcType=BIGINT},
+      modifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      sku_id = #{skuId,jdbcType=BIGINT},
+      sellable_qty = #{sellableQty,jdbcType=BIGINT},
+      withholding_qty = #{withholdingQty,jdbcType=BIGINT},
+      occupied_qty = #{occupiedQty,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

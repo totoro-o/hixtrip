@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hixtrip.sample.infra.db.mapper.OrderDOMapper">
+  <resultMap id="BaseResultMap" type="com.hixtrip.sample.infra.db.dataobject.OrderDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+    <result column="creatorId" jdbcType="BIGINT" property="creatorid" />
+    <result column="createdTime" jdbcType="TIMESTAMP" property="createdtime" />
+    <result column="modifierId" jdbcType="BIGINT" property="modifierid" />
+    <result column="modifiedTime" jdbcType="TIMESTAMP" property="modifiedtime" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="buyer_id" jdbcType="BIGINT" property="buyerId" />
+    <result column="seller_id" jdbcType="BIGINT" property="sellerId" />
+    <result column="sku_id" jdbcType="BIGINT" property="skuId" />
+    <result column="sku_qty" jdbcType="BIGINT" property="skuQty" />
+    <result column="sku_price" jdbcType="DECIMAL" property="skuPrice" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
+    <result column="pay_number" jdbcType="VARCHAR" property="payNumber" />
+    <result column="del" jdbcType="BIT" property="del" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, version, creatorId, createdTime, modifierId, modifiedTime, number, buyer_id, 
+    seller_id, sku_id, sku_qty, sku_price, amount, pay_status, pay_number, del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.hixtrip.sample.infra.db.dataobject.OrderDO">
+    insert into order (id, version, creatorId, 
+      createdTime, modifierId, modifiedTime, 
+      number, buyer_id, seller_id, 
+      sku_id, sku_qty, sku_price, 
+      amount, pay_status, pay_number, 
+      del)
+    values (#{id,jdbcType=BIGINT}, #{version,jdbcType=BIGINT}, #{creatorid,jdbcType=BIGINT}, 
+      #{createdtime,jdbcType=TIMESTAMP}, #{modifierid,jdbcType=BIGINT}, #{modifiedtime,jdbcType=TIMESTAMP}, 
+      #{number,jdbcType=VARCHAR}, #{buyerId,jdbcType=BIGINT}, #{sellerId,jdbcType=BIGINT}, 
+      #{skuId,jdbcType=BIGINT}, #{skuQty,jdbcType=BIGINT}, #{skuPrice,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=DECIMAL}, #{payStatus,jdbcType=INTEGER}, #{payNumber,jdbcType=VARCHAR}, 
+      #{del,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hixtrip.sample.infra.db.dataobject.OrderDO">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="creatorid != null">
+        creatorId,
+      </if>
+      <if test="createdtime != null">
+        createdTime,
+      </if>
+      <if test="modifierid != null">
+        modifierId,
+      </if>
+      <if test="modifiedtime != null">
+        modifiedTime,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="buyerId != null">
+        buyer_id,
+      </if>
+      <if test="sellerId != null">
+        seller_id,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="skuQty != null">
+        sku_qty,
+      </if>
+      <if test="skuPrice != null">
+        sku_price,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="payNumber != null">
+        pay_number,
+      </if>
+      <if test="del != null">
+        del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="creatorid != null">
+        #{creatorid,jdbcType=BIGINT},
+      </if>
+      <if test="createdtime != null">
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierid != null">
+        #{modifierid,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedtime != null">
+        #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null">
+        #{buyerId,jdbcType=BIGINT},
+      </if>
+      <if test="sellerId != null">
+        #{sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuQty != null">
+        #{skuQty,jdbcType=BIGINT},
+      </if>
+      <if test="skuPrice != null">
+        #{skuPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="payNumber != null">
+        #{payNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hixtrip.sample.infra.db.dataobject.OrderDO">
+    update order
+    <set>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="creatorid != null">
+        creatorId = #{creatorid,jdbcType=BIGINT},
+      </if>
+      <if test="createdtime != null">
+        createdTime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifierid != null">
+        modifierId = #{modifierid,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedtime != null">
+        modifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerId != null">
+        buyer_id = #{buyerId,jdbcType=BIGINT},
+      </if>
+      <if test="sellerId != null">
+        seller_id = #{sellerId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuQty != null">
+        sku_qty = #{skuQty,jdbcType=BIGINT},
+      </if>
+      <if test="skuPrice != null">
+        sku_price = #{skuPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="payNumber != null">
+        pay_number = #{payNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        del = #{del,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hixtrip.sample.infra.db.dataobject.OrderDO">
+    update order
+    set version = #{version,jdbcType=BIGINT},
+      creatorId = #{creatorid,jdbcType=BIGINT},
+      createdTime = #{createdtime,jdbcType=TIMESTAMP},
+      modifierId = #{modifierid,jdbcType=BIGINT},
+      modifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      number = #{number,jdbcType=VARCHAR},
+      buyer_id = #{buyerId,jdbcType=BIGINT},
+      seller_id = #{sellerId,jdbcType=BIGINT},
+      sku_id = #{skuId,jdbcType=BIGINT},
+      sku_qty = #{skuQty,jdbcType=BIGINT},
+      sku_price = #{skuPrice,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      pay_status = #{payStatus,jdbcType=INTEGER},
+      pay_number = #{payNumber,jdbcType=VARCHAR},
+      del = #{del,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
