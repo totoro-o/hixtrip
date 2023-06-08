@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hixtrip.sample.infra.OrderMapper">
+    <!--mapper xml-->
+
+    <!-- 查询库存信息 -->
+    <select id="findByOrderNumber" resultType="OrderDO">
+        SELECT *
+        FROM order
+        WHERE order_number = #{orderNumber}
+    </select>
+    <!-- 查询库存信息 -->
+    <select id="findOrderNumberByOrderId" resultType="OrderDO">
+        SELECT order_number
+        FROM order
+        WHERE order_id = #{orderNId}
+    </select>
+
+
+    <insert id="saveOrder">
+        INSERT INTO orders (order_number, order_status, total_amount 等等需要新增的字段)
+        VALUES (#{orderNumber}, #{orderStatus}, #{totalAmount})
+    </insert>
+
+
+    <update id="updateOrder">
+        UPDATE order
+        SET
+            需要修改的字段
+        WHERE order_id = #{orderId}
+    </update>
+</mapper>
