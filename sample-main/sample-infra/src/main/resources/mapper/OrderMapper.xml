@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hixtrip.sample.infra.OrderMapper">
+<!--mapper xml-->
+    <select id="findOrderIdByCaseNo" resultType="java.lang.String">
+        select order_id
+        from `order`
+        where order_no = #{orderNo} and del_flag = 0 limit 1
+    </select>
+    <insert id="insertOrder" parameterType="com.hixtrip.sample.infra.db.dataobject.OrderDO" useGeneratedKeys="true" keyProperty="orderId">
+        insert into `order` (order_id, order_no, order_status /*  其余字段 */)
+        select #{orderId}, #{orderNo}, #{orderStatus}, /*  其余字段 */ from dual
+        where not exists (select order_no from `order` where case_no = #{caseNo} and del_flag = 0 limit 1)
+    </insert>
+    <update id="updateOrderStatus">
+        update `order`
+        set order_status = #{afterOrderStatus}
+        where order_id = #{orderId} and order_status = #{sourceOrderStatus} and del_flag = 0
+    </update>
+</mapper>

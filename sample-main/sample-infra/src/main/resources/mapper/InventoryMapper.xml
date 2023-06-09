@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hixtrip.sample.infra.InventoryMapper">
+<!--mapper xml-->
+    <update id="updateInventory">
+        UPDATE inventory
+        set withholding_quantity = withholding_quantity + #{occupiedQuantity},
+            sellable_quantity = sellable_quantity - #{occupiedQuantity}
+        WHERE sku_id = #{skuId}
+          and sellable_quantity - #{occupiedQuantity} >= 0
+         and del_flag = 0
+    </update>
+</mapper>

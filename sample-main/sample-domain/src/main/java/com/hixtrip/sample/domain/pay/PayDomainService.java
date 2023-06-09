@@ -1,5 +1,6 @@
 package com.hixtrip.sample.domain.pay;
 
+import com.hixtrip.sample.domain.pay.model.Pay;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,4 +16,5 @@ public class PayDomainService {
     public void payRecord() {
         //无需实现，直接调用即可
     }
+
 }
