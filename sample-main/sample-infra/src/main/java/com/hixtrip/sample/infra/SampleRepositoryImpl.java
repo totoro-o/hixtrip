@@ -21,6 +21,7 @@ public class SampleRepositoryImpl implements SampleRepository {
     public Sample test() {
         //此处可调用mybatis进行查询，DO转化为领域对象返回，如：
         SampleDO sampleDO = sampleMapper.selectSample();
+        SampleDO sampleDO1 = sampleMapper.selectById(1l);
         return SampleDOConvertor.INSTANCE.doToDomain(sampleDO);
     }
 }

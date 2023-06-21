@@ -8,7 +8,7 @@
     <select id="selectSample" resultType="com.hixtrip.sample.infra.db.dataobject.SampleDO">
         select id, name
         from sample
-        where delFlag = 0
+        where del_flag = 0
           and id = 1
     </select>
 </mapper>
