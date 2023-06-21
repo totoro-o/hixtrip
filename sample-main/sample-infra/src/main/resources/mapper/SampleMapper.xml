@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hixtrip.sample.infra.db.mapper.SampleMapper">
+    <!--mapper xml-->
+    <select id="selectSample" resultType="com.hixtrip.sample.infra.db.dataobject.SampleDO">
+        select id, name
+        from sample
+        where delFlag = 0
+          and id = 1
+    </select>
+</mapper>
