@@ -14,7 +14,7 @@ public class InventoryDomainService {
      * @param skuId
      */
     public void getInventory(String skuId) {
-        //todo 需要你在infra实现, 返回的领域对象自行定义
+        //todo 需要你在infra实现，只需要实现缓存操作, 返回的领域对象自行定义
     }
 
     /**
@@ -27,7 +27,7 @@ public class InventoryDomainService {
      * @return
      */
     public Boolean changeInventory(String skuId, Long sellableQuantity, Long withholdingQuantity, Long occupiedQuantity) {
-        //todo 需要你在infra实现，特别注意，需要处理一般并发场景，防止超卖。但不需要进行高并发设计。
+        //todo 需要你在infra实现，只需要实现缓存操作，防止超卖。按100并发设计。
         return true;
     }
 }
