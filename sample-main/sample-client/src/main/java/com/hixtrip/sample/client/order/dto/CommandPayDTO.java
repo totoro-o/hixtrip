@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 创建订单的请求
+ * 支付回调的入参
  */
 @Data
 @AllArgsConstructor
@@ -14,8 +14,14 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CommandPayDTO {
 
+    /**
+     * 订单id
+     */
     private String orderId;
 
+    /**
+     * 支付状态
+     */
     private String payStatus;
 
 

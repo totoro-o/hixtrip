@@ -16,7 +16,7 @@ public class OrderController {
     /**
      * todo 这是你要实现的接口
      *
-     * @param commandOderCreateDTO 请修改入参对象
+     * @param commandOderCreateDTO 入参对象
      * @return 请修改出参对象
      */
     @PostMapping(path = "/command/order/create")
@@ -30,7 +30,7 @@ public class OrderController {
      * todo 这是模拟创建订单后，支付结果的回调通知
      * 需要使用策略模式处理至少三种场景：支付成功、支付失败、重复支付(自行设计回调报文进行重复判定)
      *
-     * @param commandPayDTO 请修改入参对象
+     * @param commandPayDTO 入参对象
      * @return 请修改出参对象
      */
     @PostMapping(path = "/command/order/pay/callback")

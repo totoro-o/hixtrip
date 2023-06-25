@@ -12,7 +12,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CommandPay {
 
+    /**
+     * 订单id
+     */
     private String orderId;
 
+    /**
+     * 订单状态
+     */
     private String payStatus;
 }
