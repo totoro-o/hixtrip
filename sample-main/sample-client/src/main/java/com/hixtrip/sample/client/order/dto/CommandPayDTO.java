@@ -1,4 +1,4 @@
-package com.hixtrip.sample.client;
+package com.hixtrip.sample.client.order.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,13 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 这是请求体的示例
+ * 创建订单的请求
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SampleReq {
+public class CommandPayDTO {
 
-    private String test;
+    private String orderId;
+
+    private String payStatus;
+
+
 }

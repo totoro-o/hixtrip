@@ -23,7 +23,7 @@ public class SampleRepositoryImpl implements SampleRepository {
 
     @Override
     public Sample test() {
-        //redisTemplate.opsForValue().set("test","123");
+        redisTemplate.opsForValue().set("test", "123");
         //此处可调用mybatis进行查询，DO转化为领域对象返回，如：
         SampleDO sampleDO = sampleMapper.selectSample();
         SampleDO sampleDO1 = sampleMapper.selectById(1L);

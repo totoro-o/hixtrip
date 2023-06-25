@@ -11,6 +11,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 public class RedisConfig {
     /**
      * 在该方法中自定义RedisTemplate的序列化器，方法名自己取，记得加@Bean注解返回RedisTemplate对象
+     *
      * @param redisConnectionFactory 连接工厂，Spring会自动注入
      * @return RedisTemplate对象
      */

@@ -2,8 +2,8 @@ package com.hixtrip.sample.app.service;
 
 import com.hixtrip.sample.app.api.SampleService;
 import com.hixtrip.sample.app.convertor.SampleConvertor;
-import com.hixtrip.sample.client.SampleReq;
-import com.hixtrip.sample.client.SampleVO;
+import com.hixtrip.sample.client.sample.dto.SampleReq;
+import com.hixtrip.sample.client.sample.vo.SampleVO;
 import com.hixtrip.sample.domain.sample.SampleDomainService;
 import com.hixtrip.sample.domain.sample.model.Sample;
 import org.springframework.beans.factory.annotation.Autowired;

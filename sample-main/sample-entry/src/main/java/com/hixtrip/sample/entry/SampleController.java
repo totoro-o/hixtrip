@@ -1,8 +1,8 @@
 package com.hixtrip.sample.entry;
 
 import com.hixtrip.sample.app.api.SampleService;
-import com.hixtrip.sample.client.SampleReq;
-import com.hixtrip.sample.client.SampleVO;
+import com.hixtrip.sample.client.sample.dto.SampleReq;
+import com.hixtrip.sample.client.sample.vo.SampleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

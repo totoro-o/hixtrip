@@ -8,13 +8,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class InventoryDomainService {
+
+
     /**
      * 获取sku当前库存
      *
      * @param skuId
      */
-    public void getInventory(String skuId) {
+    public Integer getInventory(String skuId) {
         //todo 需要你在infra实现，只需要实现缓存操作, 返回的领域对象自行定义
+        return null;
     }
 
     /**
@@ -28,6 +31,6 @@ public class InventoryDomainService {
      */
     public Boolean changeInventory(String skuId, Long sellableQuantity, Long withholdingQuantity, Long occupiedQuantity) {
         //todo 需要你在infra实现，只需要实现缓存操作，防止超卖。按100并发设计。
-        return true;
+        return null;
     }
 }

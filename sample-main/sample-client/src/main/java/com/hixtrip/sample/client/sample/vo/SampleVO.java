@@ -1,4 +1,4 @@
-package com.hixtrip.sample.client;
+package com.hixtrip.sample.client.sample.vo;
 
 import lombok.Builder;
 import lombok.Data;

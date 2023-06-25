@@ -1,5 +1,6 @@
 package com.hixtrip.sample.domain.pay;
 
+import com.hixtrip.sample.domain.pay.model.CommandPay;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,10 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class PayDomainService {
 
+
     /**
      * 记录支付回调结果
      */
-    public void payRecord() {
+    public void payRecord(CommandPay commandPay) {
         //无需实现，直接调用即可
     }
 }
