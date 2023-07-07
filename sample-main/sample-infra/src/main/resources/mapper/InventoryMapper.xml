@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hixtrip.sample.infra.SampleMapper">
+    <!--mapper xml-->
+
+    #如果需要更严谨的就用version版本来实现乐观锁，我这边直接用数据实现，可能会有aba问题，version加1就行
+    <update id = "changeInventory">
+        update inventory
+        set sellable_quantity = sellable_quantity - #{withholdingQuantity},
+            withholding_quantity = withholding_quantity + #{withholdingQuantity}
+        where sku_id = #{skuid}
+              and sellable_quantity = #{sellableQuantity}
+              and occupied_quantity = #{occupiedQuantity};
+    </update>
+
+    <update id = "changeIntentoryOnPaySuccess">
+        update inventory
+        set withholding_quantity = withholding_quantity - #{withholdingQuantity},
+            occupied_quantity = occupied_quantity +  #{withholdingQuantity}
+        where sku_id = #{skuId}
+    </update>
+
+
+    <update id = "changeIntentoryOnPayFail">
+        update inventory
+        set sellable_quantity = sellable_quantity + #{withholdingQuantity},
+            withholding_quantity = withholding_quantity - #{withholdingQuantity},
+        where sku_id = #{skuId}
+    </update>
+</mapper>
