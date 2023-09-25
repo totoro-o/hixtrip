@@ -4,16 +4,20 @@ import com.hixtrip.sample.app.api.OrderService;
 import com.hixtrip.sample.client.order.dto.CommandOderCreateDTO;
 import com.hixtrip.sample.client.order.dto.CommandPayDTO;
 import com.hixtrip.sample.domain.commodity.CommodityDomainService;
+import com.hixtrip.sample.domain.inventory.InventoryConstants;
 import com.hixtrip.sample.domain.inventory.InventoryDomainService;
 import com.hixtrip.sample.domain.inventory.model.Inventory;
 import com.hixtrip.sample.domain.order.OrderDomainService;
 import com.hixtrip.sample.domain.order.model.Order;
 import com.hixtrip.sample.domain.pay.strategy.*;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 
 /**
  * app层负责处理request请求，调用领域服务
@@ -31,6 +35,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private PayCallStrategyContext payCallStrategyContext;
 
+    @Autowired
+    private RedissonClient redissonClient;
+
     @Transactional
     @Override
     public String order(CommandOderCreateDTO commandOderCreateDTO) {
@@ -41,14 +48,31 @@ public class OrderServiceImpl implements OrderService {
 
         //扣减库存 (只在缓存实现)
         //首先检查可售库存是否大于等于购买数量
-        Inventory inventory = inventoryDomainService.getInventory(skuId);
-        if (inventory == null || inventory.getSellableQuantity() < commandOderCreateDTO.getAmount()) {
-            //抛出可售库存不足错误
+        RLock lock = redissonClient.getLock(InventoryConstants.LOCK_PREFIX + skuId);
+        boolean hasLock = false;
+        try {
+            hasLock = lock.tryLock(10, TimeUnit.MILLISECONDS);
+            if (!hasLock) {
+                throw new RuntimeException("当前访问量过大，请稍后重试");
+            }
+
+            Inventory inventory = inventoryDomainService.getInventory(skuId);
+            if (inventory == null || inventory.getSellableQuantity() < commandOderCreateDTO.getAmount()) {
+                throw new RuntimeException("可售库存不足");
+            }
+
+            //将购买数量从可售库存中减去，并将减去的数量记录到预占库存中。
+            inventory.setSellableQuantity(inventory.getSellableQuantity() - commandOderCreateDTO.getAmount());
+            inventory.setWithholdingQuantity(inventory.getWithholdingQuantity() + commandOderCreateDTO.getAmount());
+            inventoryDomainService.changeInventory(inventory.getSkuId(), inventory.getSellableQuantity(), inventory.getWithholdingQuantity(), inventory.getOccupiedQuantity());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        } finally {
+            if (hasLock) {
+                lock.unlock();
+            }
         }
-        //将购买数量从可售库存中减去，并将减去的数量记录到预占库存中。
-        inventory.setSellableQuantity(inventory.getSellableQuantity() - commandOderCreateDTO.getAmount());
-        inventory.setWithholdingQuantity(inventory.getWithholdingQuantity() + commandOderCreateDTO.getAmount());
-        inventoryDomainService.changeInventory(inventory.getSkuId(), inventory.getSellableQuantity(), inventory.getWithholdingQuantity(), inventory.getOccupiedQuantity());
 
         //生成订单
         Order order = new Order();
