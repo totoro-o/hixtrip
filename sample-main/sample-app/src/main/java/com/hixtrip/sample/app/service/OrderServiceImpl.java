@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
             }
 
             Inventory inventory = inventoryDomainService.getInventory(skuId);
-            if (inventory == null || inventory.getSellableQuantity() < commandOderCreateDTO.getAmount()) {
+            if (inventory == null || inventory.getSellableQuantity() <= 0 || inventory.getSellableQuantity() < commandOderCreateDTO.getAmount()) {
                 throw new RuntimeException("可售库存不足");
             }
 
