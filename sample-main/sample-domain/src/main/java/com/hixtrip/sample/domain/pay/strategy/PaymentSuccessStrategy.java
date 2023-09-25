@@ -10,7 +10,7 @@ import com.hixtrip.sample.domain.pay.model.CommandPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component(value = "paymentSuccessStrategy")
 public class PaymentSuccessStrategy implements PayCallStrategy {
     @Autowired
     private PayDomainService payDomainService;

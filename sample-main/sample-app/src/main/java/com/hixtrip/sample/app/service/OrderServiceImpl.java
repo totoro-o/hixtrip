@@ -8,11 +8,7 @@ import com.hixtrip.sample.domain.inventory.InventoryDomainService;
 import com.hixtrip.sample.domain.inventory.model.Inventory;
 import com.hixtrip.sample.domain.order.OrderDomainService;
 import com.hixtrip.sample.domain.order.model.Order;
-import com.hixtrip.sample.domain.pay.strategy.PayStatus;
-import com.hixtrip.sample.domain.pay.strategy.DuplicatePaymentStrategy;
-import com.hixtrip.sample.domain.pay.strategy.PayCallStrategyContext;
-import com.hixtrip.sample.domain.pay.strategy.PaymentFailureStrategy;
-import com.hixtrip.sample.domain.pay.strategy.PaymentSuccessStrategy;
+import com.hixtrip.sample.domain.pay.strategy.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
     private CommodityDomainService commodityDomainService;
     @Autowired
     private InventoryDomainService inventoryDomainService;
+
+    @Autowired
+    private PayCallStrategyContext payCallStrategyContext;
 
     @Transactional
     @Override
@@ -65,25 +64,13 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public String payCallback(CommandPayDTO commandPayDTO) {
-        PayCallStrategyContext paymentContext;
-        String orderId = commandPayDTO.getOrderId();
+        PayCallStrategy payCallStrategy = payCallStrategyContext.getInstance(commandPayDTO.getPayStatus());
 
-        if (commandPayDTO.getPayStatus().equals(PayStatus.SUCCESS)) {
-            paymentContext = new PayCallStrategyContext(new PaymentSuccessStrategy());
-            paymentContext.execute(orderId);
-
-        } else if (commandPayDTO.getPayStatus().equals(PayStatus.FAIL)) {
-            paymentContext = new PayCallStrategyContext(new PaymentFailureStrategy());
-            paymentContext.execute(orderId);
-
-        } else if (commandPayDTO.getPayStatus().equals(PayStatus.DUPLICATE)) {
-            paymentContext = new PayCallStrategyContext(new DuplicatePaymentStrategy());
-            paymentContext.execute(orderId);
-
-        } else {
+        if (payCallStrategy == null) {
             return String.format("操作失败，存在其他回调状态：%s", commandPayDTO.getPayStatus());
         }
 
+        payCallStrategy.execute(commandPayDTO.getOrderId());
         return "操作成功";
     }
 }
