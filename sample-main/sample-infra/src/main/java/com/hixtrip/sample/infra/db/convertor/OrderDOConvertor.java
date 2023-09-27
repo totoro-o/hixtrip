@@ -1,5 +1,7 @@
 package com.hixtrip.sample.infra.db.convertor;
 
+import com.hixtrip.sample.domain.order.model.Order;
+import com.hixtrip.sample.infra.db.dataobject.OrderDO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -11,4 +13,7 @@ import org.mapstruct.factory.Mappers;
 public interface OrderDOConvertor {
     OrderDOConvertor INSTANCE = Mappers.getMapper(OrderDOConvertor.class);
 
+    OrderDO domainToDO(Order order);
+
+    Order doToDomain(OrderDO orderDO);
 }
