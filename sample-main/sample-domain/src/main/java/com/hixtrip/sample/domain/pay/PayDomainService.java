@@ -13,6 +13,7 @@ public class PayDomainService {
 
     /**
      * 记录支付回调结果
+     * 【高级要求】至少有一个功能点能体现充血模型的使用。
      */
     public void payRecord(CommandPay commandPay) {
         //无需实现，直接调用即可
