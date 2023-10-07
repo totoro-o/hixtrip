@@ -75,6 +75,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.14.1</version>
+        </dependency>
+
 
         <!--        <dependency>-->
         <!--            <groupId>org.mybatis.spring.boot</groupId>-->
