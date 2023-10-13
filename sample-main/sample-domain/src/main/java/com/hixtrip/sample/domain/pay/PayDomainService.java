@@ -1,6 +1,10 @@
 package com.hixtrip.sample.domain.pay;
 
+import com.hixtrip.sample.domain.order.OrderDomainService;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
+import com.hixtrip.sample.domain.pay.strategy.PayStrategy;
+import com.hixtrip.sample.domain.pay.strategy.PayStrategyContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +14,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class PayDomainService {
 
+    @Autowired
+    private OrderDomainService orderDomainService;
+
+    @Autowired
+    private PayStrategyContext payStrategyContext;
 
     /**
      * 记录支付回调结果
@@ -17,5 +26,8 @@ public class PayDomainService {
      */
     public void payRecord(CommandPay commandPay) {
         //无需实现，直接调用即可
+        // 根据支付状态回调支付策略（值为paySuccess，payRepeat，payFail）
+        PayStrategy payStrategy = payStrategyContext.getResource(commandPay.getPayStatus());
+        payStrategy.payCallback(commandPay);
     }
 }

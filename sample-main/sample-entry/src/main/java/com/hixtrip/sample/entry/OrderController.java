@@ -1,7 +1,12 @@
 package com.hixtrip.sample.entry;
 
+import com.hixtrip.sample.app.api.OrderService;
+import com.hixtrip.sample.app.util.ValidateUtil;
 import com.hixtrip.sample.client.order.dto.CommandOderCreateDTO;
 import com.hixtrip.sample.client.order.dto.CommandPayDTO;
+import com.hixtrip.sample.client.sample.vo.ResultVo;
+import com.hixtrip.sample.domain.order.model.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OrderController {
 
+    @Autowired
+    private OrderService orderService;
 
     /**
      * todo 这是你要实现的接口
@@ -20,10 +27,16 @@ public class OrderController {
      * @return 请修改出参对象
      */
     @PostMapping(path = "/command/order/create")
-    public String order(@RequestBody CommandOderCreateDTO commandOderCreateDTO) {
-        //登录信息可以在这里模拟
-        var userId = "";
-        return "";
+    public ResultVo order(@RequestBody CommandOderCreateDTO commandOderCreateDTO) throws Exception {
+        ResultVo resultVo = new ResultVo();
+        // 校验必填
+        ValidateUtil.validate(commandOderCreateDTO);
+        // 创建订单
+        orderService.createOrder(commandOderCreateDTO);
+        resultVo.setSuccess(true);
+        resultVo.setMsg("创建订单成功！");
+        return resultVo;
+
     }
 
     /**
@@ -34,8 +47,16 @@ public class OrderController {
      * @return 请修改出参对象
      */
     @PostMapping(path = "/command/order/pay/callback")
-    public String payCallback(@RequestBody CommandPayDTO commandPayDTO) {
-        return "";
+    public ResultVo payCallback(@RequestBody CommandPayDTO commandPayDTO) throws Exception {
+        ResultVo resultVo = new ResultVo();
+        // 校验必填
+        ValidateUtil.validate(commandPayDTO);
+        // 根据支付状态处理订单
+        orderService.payCallback(commandPayDTO);
+        resultVo.setSuccess(true);
+        resultVo.setMsg("支付回调成功！");
+        return resultVo;
     }
+
 
 }

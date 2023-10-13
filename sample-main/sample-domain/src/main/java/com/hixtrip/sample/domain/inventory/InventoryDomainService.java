@@ -1,5 +1,7 @@
 package com.hixtrip.sample.domain.inventory;
 
+import com.hixtrip.sample.domain.inventory.repository.InventoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class InventoryDomainService {
 
+    @Autowired
+    private InventoryRepository inventoryRepository;
 
     /**
      * 获取sku当前库存
@@ -17,7 +21,7 @@ public class InventoryDomainService {
      */
     public Integer getInventory(String skuId) {
         //todo 需要你在infra实现，只需要实现缓存操作, 返回的领域对象自行定义
-        return null;
+        return inventoryRepository.getInventory(skuId);
     }
 
     /**
@@ -31,6 +35,8 @@ public class InventoryDomainService {
      */
     public Boolean changeInventory(String skuId, Long sellableQuantity, Long withholdingQuantity, Long occupiedQuantity) {
         //todo 需要你在infra实现，只需要实现缓存操作。
-        return null;
+
+        // 业务不清晰，暂时使用预占内存作为修改库存，正数为减少库存，负数为恢复库存
+        return inventoryRepository.changeInventory(skuId,withholdingQuantity);
     }
 }

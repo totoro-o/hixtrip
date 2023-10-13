@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.TTradeOrderMapper">
+
+    <resultMap id="BaseResultMap" type="generator.domain.TTradeOrder">
+            <id property="id" column="ID" jdbcType="VARCHAR"/>
+            <result property="validFlag" column="VALID_FLAG" jdbcType="VARCHAR"/>
+            <result property="createdTime" column="CREATED_TIME" jdbcType="VARCHAR"/>
+            <result property="creatorId" column="CREATOR_ID" jdbcType="VARCHAR"/>
+            <result property="creatorName" column="CREATOR_NAME" jdbcType="VARCHAR"/>
+            <result property="createdDeptId" column="CREATED_DEPT_ID" jdbcType="VARCHAR"/>
+            <result property="createdDeptName" column="CREATED_DEPT_NAME" jdbcType="VARCHAR"/>
+            <result property="lastModifiedTime" column="LAST_MODIFIED_TIME" jdbcType="VARCHAR"/>
+            <result property="lastModifierId" column="LAST_MODIFIER_ID" jdbcType="VARCHAR"/>
+            <result property="lastModifierName" column="LAST_MODIFIER_NAME" jdbcType="VARCHAR"/>
+            <result property="lastModifiedDeptId" column="LAST_MODIFIED_DEPT_ID" jdbcType="VARCHAR"/>
+            <result property="lastModifiedDeptName" column="LAST_MODIFIED_DEPT_NAME" jdbcType="VARCHAR"/>
+            <result property="orderNo" column="ORDER_NO" jdbcType="VARCHAR"/>
+            <result property="orderTime" column="ORDER_TIME" jdbcType="VARCHAR"/>
+            <result property="payTime" column="PAY_TIME" jdbcType="VARCHAR"/>
+            <result property="payType" column="PAY_TYPE" jdbcType="VARCHAR"/>
+            <result property="orderDeliveryTime" column="ORDER_DELIVERY_TIME" jdbcType="VARCHAR"/>
+            <result property="orderReceivingTime" column="ORDER_RECEIVING_TIME" jdbcType="VARCHAR"/>
+            <result property="buyerId" column="BUYER_ID" jdbcType="VARCHAR"/>
+            <result property="buyerName" column="BUYER_NAME" jdbcType="VARCHAR"/>
+            <result property="sellerId" column="SELLER_ID" jdbcType="VARCHAR"/>
+            <result property="sellerName" column="SELLER_NAME" jdbcType="VARCHAR"/>
+            <result property="orderStatus" column="ORDER_STATUS" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,VALID_FLAG,CREATED_TIME,
+        CREATOR_ID,CREATOR_NAME,CREATED_DEPT_ID,
+        CREATED_DEPT_NAME,LAST_MODIFIED_TIME,LAST_MODIFIER_ID,
+        LAST_MODIFIER_NAME,LAST_MODIFIED_DEPT_ID,LAST_MODIFIED_DEPT_NAME,
+        ORDER_NO,ORDER_TIME,PAY_TIME,
+        PAY_TYPE,ORDER_DELIVERY_TIME,ORDER_RECEIVING_TIME,
+        BUYER_ID,BUYER_NAME,SELLER_ID,
+        SELLER_NAME,ORDER_STATUS
+    </sql>
+</mapper>
