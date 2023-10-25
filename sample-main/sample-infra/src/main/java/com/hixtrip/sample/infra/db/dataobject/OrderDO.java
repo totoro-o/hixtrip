@@ -1,23 +1,16 @@
-package com.hixtrip.sample.domain.order.model;
+package com.hixtrip.sample.infra.db.dataobject;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 订单表
+ * @CreateDate: 2023/10/24
+ * @Author: ccj
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-@SuperBuilder(toBuilder = true)
-public class Order {
+public class OrderDO {
 
     /**
      * 订单号
@@ -86,6 +79,18 @@ public class Order {
     private LocalDateTime updateTime;
 
 
+
+
+    /**
+     * 分库键
+     */
+    private String dbShardingKey;
+
+
+    /**
+     * 分表键
+     */
+    private String tbShardingKey;
 
 
 }
