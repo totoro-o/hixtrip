@@ -1,5 +1,6 @@
 package com.hixtrip.sample.domain.order.model;
 
+import com.hixtrip.sample.domain.constants.OrderPayStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -80,4 +81,56 @@ public class Order {
      * 修改时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 初始化订单
+     */
+    public static Order init(String id, String userId, String skuId, Integer amount, BigDecimal money) {
+        Order order = new Order();
+        order.setId(id);
+        order.setSkuId(skuId);
+        order.setAmount(amount);
+        order.setMoney(money);
+        order.setUserId(userId);
+
+        order.setPayStatus(OrderPayStatusEnum.UNPAID.getCode());
+
+        order.setCreateBy(userId);
+        order.setCreateTime(LocalDateTime.now());
+        order.setDelFlag(0L);
+        return order;
+    }
+
+    /**
+     * 支付成功
+     */
+    public void paySuccess() {
+        // 支付状态校验
+        if (!OrderPayStatusEnum.UNPAID.getCode().equals(this.getPayStatus())) {
+            throw new IllegalArgumentException("支付状态不合法");
+        }
+        this.setPayStatus(OrderPayStatusEnum.PAID.getCode());
+        this.setPayTime(LocalDateTime.now());
+
+        // TODO: 使用拦截器更新
+        this.setUpdateBy("");
+        this.setUpdateTime(LocalDateTime.now());
+    }
+
+    /**
+     * 支付失败
+     */
+    public void payFail() {
+        // 支付状态校验
+        if (!OrderPayStatusEnum.UNPAID.getCode().equals(this.getPayStatus())) {
+            throw new IllegalArgumentException("支付状态不合法");
+        }
+
+        this.setPayStatus(OrderPayStatusEnum.PAY_FAIL.getCode());
+        this.setPayTime(LocalDateTime.now());
+
+        // TODO: 使用拦截器更新
+        this.setUpdateBy("");
+        this.setUpdateTime(LocalDateTime.now());
+    }
 }

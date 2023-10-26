@@ -1,7 +1,11 @@
 package com.hixtrip.sample.entry;
 
+import com.hixtrip.sample.app.api.OrderService;
 import com.hixtrip.sample.client.order.dto.CommandOderCreateDTO;
 import com.hixtrip.sample.client.order.dto.CommandPayDTO;
+import com.hixtrip.sample.client.order.vo.ResultVO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
  * todo 这是你要实现的
  */
 @RestController
+@RequiredArgsConstructor
 public class OrderController {
+
+    private final OrderService orderService;
 
 
     /**
@@ -20,10 +27,18 @@ public class OrderController {
      * @return 请修改出参对象
      */
     @PostMapping(path = "/command/order/create")
-    public String order(@RequestBody CommandOderCreateDTO commandOderCreateDTO) {
-        //登录信息可以在这里模拟
-        var userId = "";
-        return "";
+    public ResultVO<String> order(@RequestBody CommandOderCreateDTO commandOderCreateDTO) {
+        // 参数校验，一般用注解校验
+        Assert.hasLength(commandOderCreateDTO.getSkuId(), "skuId不能为空");
+        Assert.notNull(commandOderCreateDTO.getAmount(), "amount不能为空");
+        Assert.isTrue(commandOderCreateDTO.getAmount() > 0, "amount必须大于0");
+
+        // TODO 模拟用户信息
+        var userId = "uid-1";
+        commandOderCreateDTO.setUserId(userId);
+
+        String orderId = orderService.createOrder(commandOderCreateDTO);
+        return ResultVO.ok(orderId);
     }
 
     /**
@@ -34,8 +49,14 @@ public class OrderController {
      * @return 请修改出参对象
      */
     @PostMapping(path = "/command/order/pay/callback")
-    public String payCallback(@RequestBody CommandPayDTO commandPayDTO) {
-        return "";
+    public ResultVO<Void> payCallback(@RequestBody CommandPayDTO commandPayDTO) {
+        String orderId = commandPayDTO.getOrderId();
+        Assert.hasLength(orderId, "orderId不能为空");
+        String payStatus = commandPayDTO.getPayStatus();
+        Assert.hasLength(payStatus, "payStatus不能为空");
+
+        orderService.payCallback(commandPayDTO);
+        return ResultVO.ok();
     }
 
 }
