@@ -1,5 +1,7 @@
 package com.hixtrip.sample.app.convertor;
 
+import com.hixtrip.sample.client.order.dto.CommandPayDTO;
+import com.hixtrip.sample.domain.pay.model.CommandPay;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,5 +14,5 @@ public interface OrderConvertor {
 
     OrderConvertor INSTANCE = Mappers.getMapper(OrderConvertor.class);
 
-
+    CommandPay PayDtoToPay(CommandPayDTO commandPayDTO);
 }
