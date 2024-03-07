@@ -1,7 +1,9 @@
 package com.hixtrip.sample.app.convertor;
 
 import com.hixtrip.sample.client.order.dto.CommandOderCreateDTO;
+import com.hixtrip.sample.client.order.dto.CommandPayDTO;
 import com.hixtrip.sample.domain.order.model.Order;
+import com.hixtrip.sample.domain.pay.model.CommandPay;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,9 +12,9 @@ import org.mapstruct.factory.Mappers;
  * 转换器
  */
 @Mapper
-public interface OrderConvertor {
+public interface PayConvertor {
 
-    OrderConvertor INSTANCE = Mappers.getMapper(OrderConvertor.class);
+    PayConvertor INSTANCE = Mappers.getMapper(PayConvertor.class);
 
-    Order dtoToDomain(CommandOderCreateDTO dto);
+    CommandPay dtoToDomain(CommandPayDTO dto);
 }

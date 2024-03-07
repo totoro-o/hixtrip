@@ -1,5 +1,9 @@
-package com.hixtrip.sample.domain.order.model;
+package com.hixtrip.sample.infra.db.dataobject;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,13 +15,16 @@ import java.time.LocalDateTime;
 
 /**
  * 订单表
+ *
+ * @author gongjs
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@TableName(value = "t_order", autoResultMap = true)
 @SuperBuilder(toBuilder = true)
-public class Order {
+public class OrderDO {
 
     /**
      * 订单号
@@ -30,16 +37,16 @@ public class Order {
      */
     private String userId;
 
+    /**
+     * 卖家
+     */
+    private String sellerId;
+
 
     /**
      * SkuId
      */
     private String skuId;
-
-    /**
-     * 卖家
-     */
-    private String sellerId;
 
     /**
      * 购买数量
@@ -64,6 +71,7 @@ public class Order {
     /**
      * 删除标志（0代表存在 1代表删除）
      */
+    @TableLogic
     private Long delFlag;
 
     /**
@@ -74,6 +82,7 @@ public class Order {
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
@@ -84,5 +93,6 @@ public class Order {
     /**
      * 修改时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 }
