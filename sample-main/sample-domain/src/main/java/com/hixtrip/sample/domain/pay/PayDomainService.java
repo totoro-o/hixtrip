@@ -1,7 +1,13 @@
 package com.hixtrip.sample.domain.pay;
 
+import com.hixtrip.sample.domain.pay.enums.PayStatus;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
+import com.hixtrip.sample.domain.pay.strategy.CallbackStrategy;
+import com.hixtrip.sample.domain.pay.strategy.PaidStrategy;
+import com.hixtrip.sample.domain.pay.strategy.PayFailedStrategy;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 /**
  * 支付领域服务
@@ -16,6 +22,17 @@ public class PayDomainService {
      * 【高级要求】至少有一个功能点能体现充血模型的使用。
      */
     public void payRecord(CommandPay commandPay) {
+
+        CallbackStrategy callback = null;
         //无需实现，直接调用即可
+        if (PayStatus.PAID.name().equals(commandPay.getPayStatus())) {
+            callback = new PaidStrategy();
+        }
+        if(PayStatus.PAY_FAILED.name().equals(commandPay.getPayStatus())) {
+            callback = new PayFailedStrategy();
+        }
+        if(Objects.nonNull(callback)) {
+            callback.payCallback(commandPay);
+        }
     }
 }

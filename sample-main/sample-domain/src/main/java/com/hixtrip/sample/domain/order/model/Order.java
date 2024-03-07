@@ -1,5 +1,8 @@
 package com.hixtrip.sample.domain.order.model;
 
+import com.hixtrip.sample.domain.order.OrderDomainService;
+import com.hixtrip.sample.domain.order.dto.OrderDomainCreateCmd;
+import com.hixtrip.sample.domain.pay.enums.PayStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -80,4 +83,38 @@ public class Order {
      * 修改时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 创建订单
+     * @param cmd
+     * @return
+     */
+    public static Order createOrder(OrderDomainCreateCmd cmd) {
+        return Order.builder()
+                .userId(cmd.getUserId())
+                .skuId(cmd.getSkuId())
+                .amount(cmd.getAmount())
+                .money(cmd.getMoney())
+                .payStatus(PayStatus.UNPAID.name())
+                .createBy("System")
+                .updateBy("System")
+                .createTime(LocalDateTime.now())
+                .updateTime(LocalDateTime.now())
+                .build();
+    }
+
+    /**
+     * 更新订单状态
+     */
+    public void updatePaid() {
+        this.payStatus = PayStatus.PAID.name();
+        this.payTime = LocalDateTime.now();
+    }
+
+    /**
+     * 更新订单状态
+     */
+    public void updatePayFailed() {
+        this.payStatus = PayStatus.PAY_FAILED.name();
+    }
 }

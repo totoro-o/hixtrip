@@ -14,6 +14,7 @@ public class CommandPay {
 
     /**
      * 订单id
+     * TODO: 使用订单id作为支付域的ID可能出现，一次订单多次支付的问题，此处默认订单有且只有一次支付
      */
     private String orderId;
 
