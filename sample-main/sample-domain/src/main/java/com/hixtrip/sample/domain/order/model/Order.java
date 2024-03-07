@@ -1,5 +1,6 @@
 package com.hixtrip.sample.domain.order.model;
 
+import com.hixtrip.sample.domain.inventory.model.Inventory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 订单表
@@ -22,7 +24,7 @@ public class Order {
     /**
      * 订单号
      */
-    private String id;
+    private String orderId;
 
 
     /**
@@ -52,7 +54,7 @@ public class Order {
     private LocalDateTime payTime;
 
     /**
-     * 支付状态
+     * 支付状态 wait=待支付  paid=已支付
      */
     private String payStatus;
 
@@ -80,4 +82,13 @@ public class Order {
      * 修改时间
      */
     private LocalDateTime updateTime;
+
+
+    public void paySuccess(){
+        this.payStatus = "success";
+    }
+
+    public void payFail(){
+        this.payStatus = "fail";
+    }
 }

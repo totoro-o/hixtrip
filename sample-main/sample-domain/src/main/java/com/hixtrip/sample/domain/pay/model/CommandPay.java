@@ -16,6 +16,14 @@ public class CommandPay {
      * 订单id
      */
     private String orderId;
+    /**
+     * sku
+     */
+    private String skuId;
+    /**
+     * 购买数量
+     */
+    private Long amount;
 
     /**
      * 订单状态

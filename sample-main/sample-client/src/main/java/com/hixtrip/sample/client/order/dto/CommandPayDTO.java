@@ -23,6 +23,9 @@ public class CommandPayDTO {
      * 支付状态
      */
     private String payStatus;
-
+    /**
+     * 签名
+     */
+    private String sign;
 
 }
