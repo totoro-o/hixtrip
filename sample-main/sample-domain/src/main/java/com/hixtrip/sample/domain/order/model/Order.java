@@ -59,7 +59,7 @@ public class Order {
     /**
      * 删除标志（0代表存在 1代表删除）
      */
-    private Long delFlag;
+    private Boolean delFlag;
 
     /**
      * 创建人

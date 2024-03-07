@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hixtrip.sample.infra.db.mapper.OrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hixtrip.sample.infra.db.dataobject.OrderDO">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="seller_id" property="sellerId" />
+        <result column="sku_id" property="skuId" />
+        <result column="amount" property="amount" />
+        <result column="money" property="money" />
+        <result column="pay_time" property="payTime" />
+        <result column="pay_status" property="payStatus" />
+        <result column="del_flag" property="delFlag" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="pay_type" property="payType" />
+        <result column="nickname" property="nickname" />
+        <result column="head_img" property="headImg" />
+        <result column="order_type" property="orderType" />
+        <result column="receiver_address" property="receiverAddress" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, seller_id, sku_id, amount, money, pay_time, pay_status, del_flag, create_by, create_time, update_by, update_time, pay_type, nickname, head_img, order_type, receiver_address
+    </sql>
+
+</mapper>

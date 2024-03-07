@@ -47,6 +47,11 @@
             <artifactId>spring-context</artifactId>
             <version>6.0.7</version>
         </dependency>
+        <dependency>
+            <groupId>com.hixtrip</groupId>
+            <artifactId>sample-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

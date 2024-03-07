@@ -1,19 +1,16 @@
-package com.hixtrip.sample.client.order.dto;
+package com.hixtrip.sample.client.order.vo;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 支付回调的入参
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommandPayDTO {
-
+public class PayCallbackVO {
     /**
      * 订单id
      */
@@ -28,6 +25,4 @@ public class CommandPayDTO {
      * 支付类别。如：alipay、wxPay等
      */
     private String payType;
-
-
 }
