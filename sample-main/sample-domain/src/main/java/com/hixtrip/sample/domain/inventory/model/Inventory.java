@@ -1,6 +1,5 @@
-package com.hixtrip.sample.domain.order.model;
+package com.hixtrip.sample.domain.inventory.model;
 
-import com.hixtrip.sample.domain.inventory.InventoryDomainService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,52 +10,33 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 订单表
+ * 库存
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder(toBuilder = true)
-public class Order {
+public class Inventory {
 
     /**
-     * 订单号
+     * 编码
      */
     private String id;
-
-
-    /**
-     * 购买人
-     */
-    private String userId;
-
 
     /**
      * SkuId
      */
     private String skuId;
+    /**
+     * 可售数量
+     */
+    private Integer sellableQuantity;
 
     /**
-     * 购买数量
+     * 预占数量
      */
-    private Integer amount;
-
-    /**
-     * 购买金额
-     */
-    private BigDecimal money;
-
-    /**
-     * 购买时间
-     */
-    private LocalDateTime payTime;
-
-    /**
-     * 支付状态
-     */
-    private String payStatus;
-
+    private Integer withholdingQuantity;
     /**
      * 删除标志（0代表存在 1代表删除）
      */
@@ -82,13 +62,4 @@ public class Order {
      */
     private LocalDateTime updateTime;
 
-    public void createNewOrder(BigDecimal skuPrice) {
-        this.money = skuPrice.multiply(new BigDecimal(this.amount.toString()));
-        this.payTime = LocalDateTime.now();
-        this.payStatus = "0";
-    }
-
-    public void updateOrderStatus(String payStatus) {
-        this.payStatus = payStatus;
-    }
 }
