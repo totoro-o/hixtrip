@@ -1,6 +1,8 @@
 #todo 你的建表语句,包含索引
+--{db_index}:数据库分表索引0、1
 --{month_suffix}：对应年月例如202401、202402等
-CREATE TABLE `order_{month_suffix}` (
+--表创建例如：order_0_202401,order_1_202401
+CREATE TABLE `order_{db_index}_{month_suffix}` (
                          `id` varchar(32) NOT NULL COMMENT '订单号',
                          `user_id` varchar(32) NOT NULL COMMENT '买家ID',
                          `seller_id` varchar(32) NOT NULL COMMENT '卖家ID',
@@ -25,9 +27,13 @@ CREATE TABLE `order_{month_suffix}` (
                          KEY `IDX_CREATE_TIME` (`create_time`) USING BTREE COMMENT '创建时间索引',
                          KEY `IDX_PAYINFO` (`pay_status`,`pay_time`,`money`) USING BTREE COMMENT '支付相关索引'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单表';
-
+--索引：
 --主要的查询场景包括买卖家频繁查询"我的订单",所以建立了卖家ID索引、买家ID索引、支付相关索引并且在create_time也创建了索引便于日期范围数据查询
+
+--分库分表方案选择：
 --鉴于近期订单量级2000W且不考虑增长，在此背景数据量级下，使用分表技术即可满足此场景需求，框架使用shardingSphere
---分表键使用createTime 字段，按月分表可以有效地管理数据的增长，并且可以根据订单创建时间快速定位到具体的分表。
+--分表键:使用卖家id（seller_id）字段,基于"卖家频繁查询我的订单,允许秒级延迟"场景下且卖家id字段是varchar类型，可以用hash取模方式分表存入
+--      例如在某个月份创建两张表order_0_202401,order_1_202401，基于（seller_id）hash取模进两张表其一，实现卖家查询秒级延迟，
+--      同时可以满足"买家频繁查询我的订单,实时性要求高"需求
 --如果读写压力大，可以使用mysql主从分离，1主1从（主库负责写入，同步到从库中从库负责读即可）
 

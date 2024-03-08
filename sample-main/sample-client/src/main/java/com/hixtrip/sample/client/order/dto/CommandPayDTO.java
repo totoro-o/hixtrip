@@ -20,7 +20,7 @@ public class CommandPayDTO {
     private String orderId;
 
     /**
-     * 支付状态
+     * 支付状态 success 成功 ,repeat 重复 ,fail 失败
      */
     private String payStatus;
 

@@ -21,4 +21,9 @@ public class CommandPay {
      * 订单状态
      */
     private String payStatus;
+
+    /**
+     * 支付类别。如：alipay、wxPay等
+     */
+    private String payType;
 }

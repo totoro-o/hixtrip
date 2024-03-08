@@ -1,6 +1,8 @@
 package com.hixtrip.sample.domain.pay;
 
+import com.hixtrip.sample.domain.component.PayCallbackContext;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PayDomainService {
-
 
     /**
      * 记录支付回调结果
