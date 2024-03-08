@@ -1,5 +1,6 @@
-package com.hixtrip.sample.domain.order.model;
+package com.hixtrip.sample.infra.db.dataobject;
 
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,18 +11,21 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 订单表
+ * DO示例
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
+@TableName(value = "order", autoResultMap = true)
 @SuperBuilder(toBuilder = true)
-public class Order {
+public class OrderDO {
+
 
     /**
      * 订单号
      */
+    @TableId
     private String id;
 
 
@@ -30,11 +34,11 @@ public class Order {
      */
     private String userId;
 
+
     /**
      * 卖方Id
      */
     private String sellerId;
-
 
     /**
      * SkuId
@@ -64,7 +68,13 @@ public class Order {
     /**
      * 删除标志（0代表存在 1代表删除）
      */
+    @TableLogic
     private Long delFlag;
+
+    /**
+     * 订单尾号
+     */
+    private String orderTailNumber;
 
     /**
      * 买家姓名
@@ -77,11 +87,6 @@ public class Order {
     private Long complaintFlag;
 
     /**
-     * 订单尾号
-     */
-    private String orderTailNumber;
-
-    /**
      * 创建人
      */
     private String createBy;
@@ -89,6 +94,7 @@ public class Order {
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
@@ -99,13 +105,6 @@ public class Order {
     /**
      * 修改时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-
-
-    // 计算购买金额  =  suk价格* 数量
-    public void totalPrice(BigDecimal skuPrice) {
-        skuPrice.multiply(new BigDecimal(amount));
-        this.money = skuPrice.multiply(new BigDecimal(amount));
-    }
-
 }
