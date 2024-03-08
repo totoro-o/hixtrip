@@ -1,9 +1,9 @@
 package com.hixtrip.sample.infra.db.convertor;
 
-import com.hixtrip.sample.domain.order.model.Order;
+import com.hixtrip.sample.domain.inventory.model.Sku;
 import com.hixtrip.sample.domain.sample.model.Sample;
-import com.hixtrip.sample.infra.db.dataobject.OrderDo;
 import com.hixtrip.sample.infra.db.dataobject.SampleDO;
+import com.hixtrip.sample.infra.db.dataobject.SkuDo;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,7 +12,8 @@ import org.mapstruct.factory.Mappers;
  * todo 自由实现
  */
 @Mapper
-public interface OrderDOConvertor {
-    OrderDOConvertor INSTANCE = Mappers.getMapper(OrderDOConvertor.class);
-    OrderDo domainTODo(Order order);
+public interface SkuDOConvertor {
+    SkuDOConvertor INSTANCE = Mappers.getMapper(SkuDOConvertor.class);
+
+    Sku doToDomain(SkuDo skuDo);
 }

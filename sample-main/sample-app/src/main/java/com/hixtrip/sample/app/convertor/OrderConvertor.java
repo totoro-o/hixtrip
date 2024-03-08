@@ -1,7 +1,9 @@
 package com.hixtrip.sample.app.convertor;
 
+import com.hixtrip.sample.domain.order.model.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
 
 /**
  * DTO对像 -> 领域对象转换器
@@ -11,6 +13,6 @@ import org.mapstruct.factory.Mappers;
 public interface OrderConvertor {
 
     OrderConvertor INSTANCE = Mappers.getMapper(OrderConvertor.class);
-
+//    Order orderTOOrder(OrderDto orderDto);
 
 }

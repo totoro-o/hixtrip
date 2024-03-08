@@ -1,4 +1,5 @@
 #todo 你的建表语句,包含索引
+
 CREATE TABLE `order` (
                          `id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '订单号',
                          `user_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '购买人',
