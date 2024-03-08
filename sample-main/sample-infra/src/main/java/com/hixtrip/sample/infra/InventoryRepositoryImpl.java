@@ -59,6 +59,6 @@ public class InventoryRepositoryImpl implements InventoryRepository {
         }finally {
             redisTemplate.opsForHash().delete(RedisConstants.getStockCountUpdateLock(),skuId);// 释放锁
         }
-        return null;
+        return true;
     }
 }

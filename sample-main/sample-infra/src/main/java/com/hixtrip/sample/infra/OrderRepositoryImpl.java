@@ -16,6 +16,8 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Autowired
     private InventoryRepository inventoryRepository;
+    @Autowired
+    private PayCallBackStrategyFactory payCallBackStrategyFactory;
 
     /**
      * 创建还未支付的订单
@@ -46,7 +48,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public ResultVo payCallback(CommandPayDTO commandPayDTO) {
-        PayCallBackStrategyFactory.getInstance(commandPayDTO.getPayStatus()).handle(commandPayDTO.getOrderId());
+        payCallBackStrategyFactory.getInstance(commandPayDTO.getPayStatus()).handle(commandPayDTO.getOrderId());
         return ResultVo.success(null);
     }
 }
