@@ -23,6 +23,7 @@ public class OrderDomainService {
     public String createOrder(Order order) {
         //需要你在infra实现, 自行定义出入参
 
+
         String orderId = orderRepository.createOrder(order);
         return orderId;
     }
