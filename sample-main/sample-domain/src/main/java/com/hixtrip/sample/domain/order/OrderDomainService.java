@@ -1,7 +1,10 @@
 package com.hixtrip.sample.domain.order;
 
 import com.hixtrip.sample.domain.order.model.Order;
+import com.hixtrip.sample.domain.order.repository.OrderRepository;
+import com.hixtrip.sample.domain.order.strategy.PayCallContext;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,13 +14,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderDomainService {
 
+    @Autowired
+    private OrderRepository orderRepository;
 
+    @Autowired
+    private PayCallContext payCallContext;
     /**
      * todo 需要实现
      * 创建待付款订单
      */
     public void createOrder(Order order) {
         //需要你在infra实现, 自行定义出入参
+        orderRepository.createOrder(order);
     }
 
     /**
@@ -26,6 +34,7 @@ public class OrderDomainService {
      */
     public void orderPaySuccess(CommandPay commandPay) {
         //需要你在infra实现, 自行定义出入参
+        payCallContext.payCallback(commandPay);
     }
 
     /**
@@ -34,5 +43,16 @@ public class OrderDomainService {
      */
     public void orderPayFail(CommandPay commandPay) {
         //需要你在infra实现, 自行定义出入参
+        payCallContext.payCallback(commandPay);
     }
+
+    public void orderPayOver(CommandPay commandPay){
+        payCallContext.payCallback(commandPay);
+
+    }
+
+    public boolean isNoPay(String orderId,String payStatus){
+        return orderRepository.isNoPay(orderId, payStatus);
+    }
+
 }

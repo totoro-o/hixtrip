@@ -1,0 +1,20 @@
+### 创建订单
+POST http://localhost:8080/command/order/create
+Content-Type:application/json
+
+{
+  "skuId": "12",
+  "amount": 5,
+  "userId": "1"
+}
+
+
+### 支付成功回调
+POST http://localhost:8080/command/order/pay/callback
+Content-Type:application/json
+
+{
+  "orderId": "7a21a34c-a957-4b55-ae56-3ae81893710f",
+  "payStatus": "pay_success",
+  "payId": "3"
+}

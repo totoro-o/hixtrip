@@ -24,5 +24,8 @@ public class CommandPayDTO {
      */
     private String payStatus;
 
-
+    /**
+     * 支付订单id
+     */
+    private String payId;
 }

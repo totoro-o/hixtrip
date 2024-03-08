@@ -21,4 +21,9 @@ public class CommandPay {
      * 订单状态
      */
     private String payStatus;
+
+    /**
+     * 支付订单号
+     */
+    private String payId;
 }

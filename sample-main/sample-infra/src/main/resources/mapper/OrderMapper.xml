@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hixtrip.sample.infra.db.mapper.OrderMapper">
+
+    <select id="isNoPay" resultType="boolean">
+        select
+            if(COUNT(id)> 0,'TRUE','FALSE')
+        from
+            orders
+        where
+            id = #{orderId} and pay_status = #{payStatus}
+    </select>
+
+    <update id="orderToSuccess" >
+        update
+            orders
+        set
+            order_status = #{orderStatus},
+            pay_status = #{payStatus},
+            pay_id = #{payId},
+            pay_time = now()
+        where
+            id = #{orderId}
+    </update>
+
+    
+</mapper>
