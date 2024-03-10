@@ -1,9 +1,6 @@
 package com.hixtrip.sample.client.order.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * 创建订单的请求 入参
