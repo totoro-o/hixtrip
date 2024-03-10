@@ -1,4 +1,4 @@
-package com.hixtrip.sample.infra.db;
+package com.hixtrip.sample.infra;
 
 import com.hixtrip.sample.domain.order.model.Order;
 import com.hixtrip.sample.domain.order.repository.OrderRepository;
