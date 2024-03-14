@@ -39,7 +39,6 @@ public class InventoryDomainService {
      * @return
      */
     public Boolean changeInventory(String skuId, Long sellableQuantity, Long withholdingQuantity, Long occupiedQuantity) {
-        //todo 需要你在infra实现，只需要实现缓存操作。
-        return null;
+        return inventoryRepository.changeInventory(skuId, sellableQuantity, withholdingQuantity, occupiedQuantity);
     }
 }

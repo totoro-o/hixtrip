@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
+
 /**
  * 库存表
  */
@@ -20,10 +22,38 @@ public class Inventory {
 
     private Integer skuId; //商品id
 
-    private Integer currentCnt; //当前商品数量
+    /**
+     * 可售数量
+     */
+    private Integer sellableQuantity;
 
-    private Integer lockCnt; //当前占用数据
+    /**
+     * 预占数量
+     */
+    private Integer withholdingQuantity;
+    /**
+     * 删除标志（0代表存在 1代表删除）
+     */
+    private Long delFlag;
 
-    private Integer inTransitCnt; //在途库存数据(已下单未支付)
+    /**
+     * 创建人
+     */
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 修改人
+     */
+    private String updateBy;
+
+    /**
+     * 修改时间
+     */
+    private LocalDateTime updateTime;
 
 }

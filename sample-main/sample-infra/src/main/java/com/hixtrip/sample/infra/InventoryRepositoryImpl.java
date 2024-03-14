@@ -61,7 +61,7 @@ public class InventoryRepositoryImpl implements InventoryRepository {
         InventoryDO inventoryDO = getInventoryFromCache(inventoryCachekey);
         if (inventoryDO != null) {
             //FIXME 判空逻辑需要完善
-            return inventoryDO.getCurrentCnt();
+            return Math.toIntExact(inventoryDO != null ? inventoryDO.getSellableQuantity() : 0);
         }
         RLock hotCacheLock = redisson.getLock(LOCK_INVENTORY_HOT_CACHE_PREFIX + skuId);
         //可以并发执行
@@ -70,7 +70,7 @@ public class InventoryRepositoryImpl implements InventoryRepository {
         try {
             inventoryDO = getInventoryFromCache(inventoryCachekey);
             if (inventoryDO != null) {
-                return inventoryDO.getCurrentCnt();
+                return Math.toIntExact(inventoryDO != null ? inventoryDO.getSellableQuantity() : 0);
             }
 
             // 双重教验过后，保证了多个线程查询缓存的一致性，此时开始加读写锁保证缓存与数据库的一致性
@@ -87,20 +87,18 @@ public class InventoryRepositoryImpl implements InventoryRepository {
                     redisUtil.set(inventoryCachekey, EMPTY_CACHE, getEmptyCacheTimeout(), TimeUnit.SECONDS);
                 }
             } catch (Exception ex) {
-                //TODO 外层事务需要设置rollbackFor异常回滚， 并做事务切面拦截异常
                 ex.printStackTrace();
             } finally {
                 rLock.unlock();
             }
         } catch (Exception ex) {
-            //TODO 外层事务需要设置rollbackFor异常回滚， 并做事务切面拦截异常
             ex.printStackTrace();
         } finally {
             hotCacheLock.unlock();
         }
 
 
-        return inventoryDO.getCurrentCnt();
+        return Math.toIntExact(inventoryDO != null ? inventoryDO.getSellableQuantity() : 0);
     }
 
 
@@ -127,8 +125,9 @@ public class InventoryRepositoryImpl implements InventoryRepository {
         rLock.lock();
         try{
             inventoryDO = inventorMapper.query(skuId);
-            Long currentCnt = sellableQuantity - withholdingQuantity - occupiedQuantity;
-            inventoryDO.setCurrentCnt(currentCnt.intValue());
+            inventoryDO.setSellableQuantity(inventoryDO.getSellableQuantity() - sellableQuantity);
+            inventoryDO.setWithholdingQuantity(inventoryDO.getWithholdingQuantity() - withholdingQuantity);
+            inventoryDO.setOccupiedQuantity(inventoryDO.getOccupiedQuantity()+occupiedQuantity);
             inventorMapper.updateInventory(inventoryDO);
             redisUtil.set(RedisKeyprefixConst.INVENTORY_CACHE + skuId, JSON.toJSONString(inventoryDO), getInventoryCacheTimeout(), TimeUnit.SECONDS);
             inventoryDOMap.put(RedisKeyprefixConst.INVENTORY_CACHE + skuId, inventoryDO);

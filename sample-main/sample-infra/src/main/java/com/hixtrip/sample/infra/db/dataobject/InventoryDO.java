@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,13 +19,22 @@ import lombok.experimental.SuperBuilder;
 public class InventoryDO {
 
 
-    private Integer inventoryId; //商品库存id
+    private Integer inventoryId; //库存id
 
-    private Integer productId; //商品id
+    private Integer skuId; //商品id
 
-    private Integer currentCnt; //当前商品数量
+    /**
+     * 可售数量
+     */
+    private Long sellableQuantity;
 
-    private Integer lockCnt; //当前占用数据
+    /**
+     * 预占数量
+     */
+    private Long withholdingQuantity;
 
-    private Integer inTransitCnt; //在途库存数据(已下单未支付)
+    /**
+     * 占用库存
+     */
+    private Long occupiedQuantity;
 }
