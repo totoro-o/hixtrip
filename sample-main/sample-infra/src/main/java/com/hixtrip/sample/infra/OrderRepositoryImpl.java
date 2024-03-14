@@ -36,14 +36,8 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public void createOrder(Order order) throws NoSuchAlgorithmException, IllegalAccessException {
-       String type = "wechat";
-       CommandPay commandPay = CommandPay.builder().build();
-        switch (type) {
-            case "wechat":
-              payStrategyService.createOrder(order);
-            default:
-                break;
-        }
+        CommandPay commandPay = CommandPay.builder().build();
+        payStrategyService.createOrder(order);
 
         commandPay = payStrategyService.receiveCallback(order);
         //todo 存入状态数据

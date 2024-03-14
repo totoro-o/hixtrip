@@ -20,7 +20,7 @@ public class WechatCreateOrderServiceImpl extends BasePayBindService<WeChatCreat
 
         Order order = orderConvertor.commandOrderCreateTOrderDO(dto);
 
-        //todo 实现回调后的处理逻辑
+        //todo //处理微信支付逻辑
         return null;
     }
 
