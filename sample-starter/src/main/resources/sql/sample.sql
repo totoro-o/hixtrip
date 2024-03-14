@@ -40,7 +40,8 @@ CREATE TABLE `order` (
 
 
 ---- 考虑到买家卖家的查询效率，分别对卖家id和买家id建立索引
---- 分库分表可采用号段模式，比如滴滴的[tinyid](https://github.com/didi/tinyid) 结合shardingsphere进行分布式id的生成，通过时间分片，
+--- 分库分表可采用号段模式，比如滴滴的[tinyid](https://github.com/didi/tinyid)
+-- 结合shardingsphere进行分布式id的生成，通过时间分片 按月分表，
 ---- 使其查询存量数据时，读请求相对均匀
 
 ---  在库存扣减的缓存方面
