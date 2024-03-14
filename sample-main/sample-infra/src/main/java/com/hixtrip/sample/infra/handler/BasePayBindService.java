@@ -1,5 +1,6 @@
 package com.hixtrip.sample.infra.handler;
 
+import com.hixtrip.sample.domain.order.model.Order;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
 import com.hixtrip.sample.infra.db.dataobject.CommandPayDO;
 import org.springframework.beans.factory.annotation.Autowired;

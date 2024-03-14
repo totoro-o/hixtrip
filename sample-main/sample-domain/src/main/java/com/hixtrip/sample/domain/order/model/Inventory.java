@@ -16,9 +16,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 public class Inventory {
 
-    private Integer inventoryId; //商品库存id
+    private Integer inventoryId; //库存id
 
-    private Integer productId; //商品id
+    private Integer skuId; //商品id
 
     private Integer currentCnt; //当前商品数量
 
