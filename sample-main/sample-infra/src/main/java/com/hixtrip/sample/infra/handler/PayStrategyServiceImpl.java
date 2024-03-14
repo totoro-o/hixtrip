@@ -31,7 +31,11 @@ public class PayStrategyServiceImpl implements IPayStrategyService{
 
     @Override
     public void createOrder(Order order) throws IllegalAccessException {
-
+        try {
+            doProcess(order);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

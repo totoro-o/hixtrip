@@ -6,7 +6,7 @@ import com.hixtrip.sample.domain.pay.model.CommandPay;
 /**
  * 支付处理服务
  */
-public interface PaymentHandleService<T, R> {
+public interface PaymentHandleService<T, R extends CommandPay> {
 
     /**
      * 处理逻辑 下单/回调

@@ -1,5 +1,6 @@
 package com.hixtrip.sample.infra.handler;
 
+import com.hixtrip.sample.domain.pay.model.CommandPay;
 import com.hixtrip.sample.infra.db.dataobject.CommandPayDO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -8,7 +9,7 @@ import javax.annotation.PostConstruct;
 /*
  * 支付基础类 自动绑定参数和对应service
  */
-public abstract class BasePayBindService<T, R extends CommandPayDO> implements PaymentHandleService<T, R>{
+public abstract class BasePayBindService<T, R extends CommandPay> implements PaymentHandleService<T, R>{
 
     @Autowired
     IPayStrategyService payStrategyService;
