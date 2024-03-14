@@ -1,5 +1,7 @@
 package com.hixtrip.sample.config;
 
+import org.redisson.Redisson;
+import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -9,6 +11,14 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 
 @Configuration
 public class RedisConfig {
+
+    @Bean
+    public Redisson redisson() {
+        //单机模式
+        Config config = new Config();
+        config.useSingleServer().setAddress("redis:localhost:6379").setDatabase(0);
+        return (Redisson) Redisson.create(config);
+    }
     /**
      * 在该方法中自定义RedisTemplate的序列化器，方法名自己取，记得加@Bean注解返回RedisTemplate对象
      *

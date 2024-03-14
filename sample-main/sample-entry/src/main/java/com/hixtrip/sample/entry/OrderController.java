@@ -23,6 +23,9 @@ public class OrderController {
     public String order(@RequestBody CommandOderCreateDTO commandOderCreateDTO) {
         //登录信息可以在这里模拟
         var userId = "";
+
+
+        //todo DTO转化为领域对象
         return "";
     }
 

@@ -1,8 +1,12 @@
 package com.hixtrip.sample.domain.order;
 
 import com.hixtrip.sample.domain.order.model.Order;
+import com.hixtrip.sample.domain.order.repository.OrderRepository;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 订单领域服务
@@ -11,13 +15,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderDomainService {
 
+    @Autowired
+    private OrderRepository orderRepository;
 
     /**
      * todo 需要实现
      * 创建待付款订单
      */
-    public void createOrder(Order order) {
+    public void createOrder(Order order) throws NoSuchAlgorithmException, IllegalAccessException {
         //需要你在infra实现, 自行定义出入参
+        orderRepository.createOrder(order);
     }
 
     /**
@@ -25,6 +32,10 @@ public class OrderDomainService {
      * 待付款订单支付成功
      */
     public void orderPaySuccess(CommandPay commandPay) {
+        //todo 对接对应支付渠道
+        // switch type 1.支付宝 2.微信
+
+        orderRepository.orderPaySuccess(commandPay);
         //需要你在infra实现, 自行定义出入参
     }
 
