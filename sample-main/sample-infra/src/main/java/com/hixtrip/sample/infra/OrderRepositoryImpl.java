@@ -54,33 +54,36 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public void orderPaySuccess(CommandPay commandPay) {
+    public String orderPaySuccess(CommandPay commandPay) {
 
         OrderDO orderDO = orderMapper.selectById(commandPay.getOrderId());
 
         if (!commandPay.getPayStatus().equals(PayStatus.PAY_SUCCESS.getName())){
-            return;
+            return "回调失败!";
         }
 
         Long amount = Long.valueOf(orderDO.getAmount());
         inventoryDomainService.changeInventory(orderDO.getSkuId(), 0L, -amount, amount);
         orderDO.setPayStatus(PayStatus.PAY_SUCCESS.getName());
         orderMapper.updateById(orderDO);
+        return PayStatus.PAY_SUCCESS.getName();
 
     }
 
     @Override
-    public void orderPayFail(CommandPay commandPay) {
+    public String orderPayFail(CommandPay commandPay) {
         OrderDO orderDO = orderMapper.selectById(commandPay.getOrderId());
 
         if (!commandPay.getPayStatus().equals(PayStatus.PAY_FAILED.getName()) || !commandPay.getPayStatus().equals(PayStatus.PAY_REAPET.getName())){
-            return;
+            return "回调失败";
         }
 
         Long amount = Long.valueOf(orderDO.getAmount());
         inventoryDomainService.changeInventory(orderDO.getSkuId(), 0L, -amount, amount);
         orderDO.setPayStatus(PayStatus.PAY_SUCCESS.getName());
         orderMapper.updateById(orderDO);
+
+        return commandPay.getPayStatus();
     }
 
 

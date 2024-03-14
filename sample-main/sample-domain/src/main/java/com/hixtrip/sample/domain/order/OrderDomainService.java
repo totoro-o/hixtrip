@@ -19,7 +19,6 @@ public class OrderDomainService {
     private OrderRepository orderRepository;
 
     /**
-     * todo 需要实现
      * 创建待付款订单
      */
     public void createOrder(Order order) throws NoSuchAlgorithmException, IllegalAccessException {
@@ -28,22 +27,16 @@ public class OrderDomainService {
     }
 
     /**
-     * todo 需要实现
      * 待付款订单支付成功
      */
-    public void orderPaySuccess(CommandPay commandPay) {
-        //todo 对接对应支付渠道
-        // switch type 1.支付宝 2.微信
-
-        orderRepository.orderPaySuccess(commandPay);
-        //需要你在infra实现, 自行定义出入参
+    public String orderPaySuccess(CommandPay commandPay) {
+        return orderRepository.orderPaySuccess(commandPay);
     }
 
     /**
-     * todo 需要实现
      * 待付款订单支付失败
      */
-    public void orderPayFail(CommandPay commandPay) {
-        //需要你在infra实现, 自行定义出入参
+    public String orderPayFail(CommandPay commandPay) {
+       return orderRepository.orderPayFail(commandPay);
     }
 }

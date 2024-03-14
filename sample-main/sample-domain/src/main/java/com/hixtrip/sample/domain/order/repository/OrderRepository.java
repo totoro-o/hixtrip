@@ -12,9 +12,9 @@ public interface OrderRepository {
 
     void createOrder(Order order) throws NoSuchAlgorithmException, IllegalAccessException;
 
-    void orderPaySuccess(CommandPay commandPay);
+    String orderPaySuccess(CommandPay commandPay);
 
-    public void orderPayFail(CommandPay commandPay);
+    String orderPayFail(CommandPay commandPay);
 
 
 }
