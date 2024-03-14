@@ -22,8 +22,9 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
-  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `user_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` varchar(32) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `seller_id` varchar(32) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `sku_id` varchar(200) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `amount` int DEFAULT NULL,
   `money` decimal(8,2) DEFAULT NULL,
@@ -35,7 +36,9 @@ CREATE TABLE `order` (
   `update_by` varchar(128) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_user_sku` (`user_id`,`sku_id`)
+  KEY `IDX_SELLER_ID` (`seller_id`) USING BTREE COMMENT '卖家ID',
+  KEY `IDX_USER_ID` (`user_id`) USING BTREE COMMENT '买家ID',
+  KEY `IDX_CREATE_TIME` (`create_time`) USING BTREE COMMENT '创建时间索引',
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 SET FOREIGN_KEY_CHECKS = 1;

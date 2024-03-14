@@ -30,6 +30,11 @@ public class Order {
      */
     private String userId;
 
+    /**
+     * 卖家
+     */
+    private String seller_id;
+
 
     /**
      * SkuId

@@ -25,16 +25,22 @@ public class Inventory {
     /**
      * 可售数量
      */
-    private Integer sellableQuantity;
+    private Long sellableQuantity;
 
     /**
      * 预占数量
      */
-    private Integer withholdingQuantity;
+    private Long withholdingQuantity;
+
+    /**
+     * 占用库存
+     */
+    private Long occupiedQuantity;
+
     /**
      * 删除标志（0代表存在 1代表删除）
      */
-    private Long delFlag;
+    private Integer delFlag;
 
     /**
      * 创建人

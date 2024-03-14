@@ -37,4 +37,29 @@ public class InventoryDO {
      * 占用库存
      */
     private Long occupiedQuantity;
+
+    /**
+     * 删除标志（0代表存在 1代表删除）
+     */
+    private Integer delFlag;
+
+    /**
+     * 创建人
+     */
+    private String createBy;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 修改人
+     */
+    private String updateBy;
+
+    /**
+     * 修改时间
+     */
+    private LocalDateTime updateTime;
 }
