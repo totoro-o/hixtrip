@@ -4,7 +4,9 @@ import com.hixtrip.sample.client.order.dto.WeChatCreateDTO;
 import com.hixtrip.sample.client.order.dto.WechatCallbackDTO;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
 import com.hixtrip.sample.infra.handler.BasePayBindService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WechatCallbackServiceImpl extends BasePayBindService<WechatCallbackDTO, CommandPay> {
     @Override
     public Class<WechatCallbackDTO> getbindParamClass() {

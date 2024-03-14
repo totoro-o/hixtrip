@@ -5,7 +5,9 @@ import com.hixtrip.sample.client.order.dto.WeChatCreateDTO;
 import com.hixtrip.sample.domain.order.model.Order;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
 import com.hixtrip.sample.infra.handler.BasePayBindService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WechatCreateOrderServiceImpl extends BasePayBindService<WeChatCreateDTO, CommandPay> {
 
 
