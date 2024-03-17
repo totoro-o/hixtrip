@@ -1,5 +1,8 @@
 package com.hixtrip.sample.app.convertor;
 
+import com.hixtrip.sample.client.order.dto.CommandOderCreateDTO;
+import com.hixtrip.sample.client.order.vo.OrderCreatedVO;
+import com.hixtrip.sample.domain.order.model.Order;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,5 +15,9 @@ public interface OrderConvertor {
 
     OrderConvertor INSTANCE = Mappers.getMapper(OrderConvertor.class);
 
+
+    Order convertToDomain(CommandOderCreateDTO commandOderCreateDTO);
+
+    OrderCreatedVO convertToVO(Order order);
 
 }

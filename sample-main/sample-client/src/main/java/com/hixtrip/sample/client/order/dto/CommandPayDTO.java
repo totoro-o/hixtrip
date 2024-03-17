@@ -20,7 +20,8 @@ public class CommandPayDTO {
     private String orderId;
 
     /**
-     * 支付状态
+     * 支付状态 </br>
+     * {@link com.hixtrip.sample.domain.order.enums.PayStatusEnum}
      */
     private String payStatus;
 
