@@ -1,6 +1,11 @@
 package com.hixtrip.sample.domain.pay;
 
+import com.hixtrip.sample.domain.dto.ApiResult;
 import com.hixtrip.sample.domain.pay.model.CommandPay;
+import com.hixtrip.sample.domain.pay.model.PaymentResult;
+import com.hixtrip.sample.domain.pay.repository.PaymentRepository;
+import com.hixtrip.sample.domain.pay.strategy.PaymentContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +15,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class PayDomainService {
 
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Autowired
+    private PaymentContext paymentContext;
+
+
+    /**
+     * 支付回调结果
+     */
+    public ApiResult<?> paymentCallback(PaymentResult paymentResult) {
+        paymentContext.getStrategy(paymentResult.getPaymentStatus()).execute(paymentResult);
+        return ApiResult.success();
+    }
 
     /**
      * 记录支付回调结果
