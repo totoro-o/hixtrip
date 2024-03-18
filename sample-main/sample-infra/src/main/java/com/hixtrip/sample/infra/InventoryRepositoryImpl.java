@@ -14,6 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * infra层是domain定义的接口具体的实现
  */
 @Component
+@Transactional
 public class InventoryRepositoryImpl implements InventoryRepository {
 
     @Autowired
