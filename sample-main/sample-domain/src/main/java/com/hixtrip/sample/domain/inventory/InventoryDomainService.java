@@ -1,6 +1,11 @@
 package com.hixtrip.sample.domain.inventory;
 
+import com.hixtrip.sample.domain.inventory.repository.InventoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * 库存领域服务
@@ -10,14 +15,17 @@ import org.springframework.stereotype.Component;
 public class InventoryDomainService {
 
 
+    @Autowired
+    private InventoryRepository inventoryRepository;
+
     /**
      * 获取sku当前库存
      *
      * @param skuId
      */
-    public Integer getInventory(String skuId) {
+    public BigInteger getInventory(String skuId) {
         //todo 需要你在infra实现，只需要实现缓存操作, 返回的领域对象自行定义
-        return null;
+        return inventoryRepository.getInventory(skuId);
     }
 
     /**
@@ -29,8 +37,15 @@ public class InventoryDomainService {
      * @param occupiedQuantity    占用库存
      * @return
      */
-    public Boolean changeInventory(String skuId, Long sellableQuantity, Long withholdingQuantity, Long occupiedQuantity) {
+    public void changeInventory(String skuId, Long sellableQuantity, Long withholdingQuantity, Long occupiedQuantity) {
         //todo 需要你在infra实现，只需要实现缓存操作。
-        return null;
+        //预占库存更新操作
+        if(Objects.nonNull(withholdingQuantity)){
+            inventoryRepository.changeWithholdingQuantity(skuId, sellableQuantity, withholdingQuantity);
+        }
+        //占用库存更新操作
+        if(Objects.nonNull(occupiedQuantity)){
+            inventoryRepository.changeOccupiedQuantity(skuId,occupiedQuantity);
+        }
     }
 }
