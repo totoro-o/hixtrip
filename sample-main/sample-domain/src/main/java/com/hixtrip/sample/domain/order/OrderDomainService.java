@@ -62,6 +62,7 @@ public class OrderDomainService {
         //需要你在infra实现, 自行定义出入参
         if ("待付款".equals(commandPay.getPayStatus())) {
             commandPay.setPayStatus("付款失败");
+            //通过读锁获取订单，避免重复支付
             Map<Object, Object> order = orderRepository.getOrder(commandPay.getOrderId());
             Object skuId = order.get("skuId");
             Object amountCache = order.get("amount");
