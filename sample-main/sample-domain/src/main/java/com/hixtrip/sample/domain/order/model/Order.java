@@ -30,6 +30,10 @@ public class Order {
      */
     private String userId;
 
+    /**
+     * 卖家id
+     */
+    private String sellerId;
 
     /**
      * SkuId
@@ -52,7 +56,7 @@ public class Order {
     private LocalDateTime payTime;
 
     /**
-     * 支付状态
+     * 支付状态(wait支付中;paying支付中;success支付成功;failed支付失败)
      */
     private String payStatus;
 
@@ -80,4 +84,25 @@ public class Order {
      * 修改时间
      */
     private LocalDateTime updateTime;
+
+    public void create(){
+        this.createTime = LocalDateTime.now();
+        this.createBy = this.userId;
+        this.delFlag = 0l;
+        this.payStatus = "wait";//待支付
+    }
+
+    public void paying(){
+        this.payStatus = "paying";//支付中
+        this.payTime = LocalDateTime.now();
+    }
+
+    public void paySuccess(){
+        this.payStatus = "success";//支付中
+        this.updateTime = LocalDateTime.now();
+    }
+    public void payFailed(){
+        this.payStatus = "failed";//支付中
+        this.updateTime = LocalDateTime.now();
+    }
 }

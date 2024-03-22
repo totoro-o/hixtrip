@@ -15,4 +15,31 @@ public class InventoryRepositoryImpl implements InventoryRepository {
     private RedisTemplate<String, Object> redisTemplate;
 
 
+    @Override
+    public Integer getInventory(String skuId) {
+        var inventory=redisTemplate.opsForValue().get(skuId);
+        return inventory == null ? 0 :  new Integer(inventory.toString());
+    }
+
+    @Override
+    public Boolean changeInventory(String skuId, Long sellableQuantity, Long withholdingQuantity, Long occupiedQuantity) {
+
+        Long  inventory = sellableQuantity -occupiedQuantity;
+        if(Long.compare(inventory,0l)<0){
+            //库存不足
+            return false;
+        }
+
+        //获取最新的sku库存
+        var inventoryNew = this.getInventory(skuId);
+        //如果不一致，返回扣减失败
+        if (!inventoryNew.equals(sellableQuantity)) {
+            return false;
+        }
+
+        //进行库存的扣减动作
+        redisTemplate.opsForValue().set(skuId,inventory);
+        return true;
+    }
+
 }
